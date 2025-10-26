@@ -1,0 +1,1103 @@
+=== DOCUMENT SEQUENCE VECTORS ===
+
+Document ID: doc_0
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 39.949969
+Sparsity: 27.47%
+Non-zero features: 272
+Top features (index: value):
+  121: 7.000000
+  27: 6.000000
+  32: 6.000000
+  41: 6.000000
+  128: 6.000000
+  199: 6.000000
+  2: 5.000000
+  44: 5.000000
+  77: 5.000000
+  0: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_1
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 27.221315
+Sparsity: 37.33%
+Non-zero features: 235
+Top features (index: value):
+  41: 7.000000
+  77: 5.000000
+  27: 4.000000
+  51: 3.000000
+  59: 3.000000
+  89: 3.000000
+  93: 3.000000
+  98: 3.000000
+  116: 3.000000
+  117: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_2
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 39.204592
+Sparsity: 28.27%
+Non-zero features: 269
+Top features (index: value):
+  53: 8.000000
+  52: 7.000000
+  128: 7.000000
+  44: 6.000000
+  127: 6.000000
+  230: 6.000000
+  17: 5.000000
+  77: 5.000000
+  133: 5.000000
+  190: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_3
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 45.442271
+Sparsity: 14.93%
+Non-zero features: 319
+Top features (index: value):
+  121: 13.000000
+  128: 9.000000
+  13: 7.000000
+  127: 7.000000
+  44: 6.000000
+  133: 6.000000
+  199: 6.000000
+  224: 6.000000
+  41: 5.000000
+  59: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_4
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 37.682887
+Sparsity: 28.80%
+Non-zero features: 267
+Top features (index: value):
+  121: 8.000000
+  128: 7.000000
+  199: 7.000000
+  133: 6.000000
+  224: 6.000000
+  89: 5.000000
+  176: 5.000000
+  177: 5.000000
+  220: 5.000000
+  221: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_5
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 20.808652
+Sparsity: 42.40%
+Non-zero features: 216
+Top features (index: value):
+  2: 3.000000
+  22: 3.000000
+  41: 3.000000
+  69: 3.000000
+  87: 3.000000
+  89: 3.000000
+  127: 3.000000
+  133: 3.000000
+  0: 2.000000
+  1: 2.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_6
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 25.961510
+Sparsity: 46.13%
+Non-zero features: 202
+Top features (index: value):
+  128: 7.000000
+  121: 5.000000
+  156: 4.000000
+  157: 4.000000
+  158: 4.000000
+  159: 4.000000
+  160: 4.000000
+  161: 4.000000
+  221: 4.000000
+  10: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_7
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 25.159491
+Sparsity: 44.53%
+Non-zero features: 208
+Top features (index: value):
+  230: 6.000000
+  174: 5.000000
+  176: 5.000000
+  71: 4.000000
+  103: 4.000000
+  127: 4.000000
+  128: 4.000000
+  32: 3.000000
+  41: 3.000000
+  52: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_8
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 36.905284
+Sparsity: 25.07%
+Non-zero features: 281
+Top features (index: value):
+  133: 7.000000
+  41: 6.000000
+  77: 6.000000
+  190: 6.000000
+  121: 5.000000
+  127: 5.000000
+  128: 5.000000
+  53: 4.000000
+  69: 4.000000
+  146: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_9
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 30.545049
+Sparsity: 45.60%
+Non-zero features: 204
+Top features (index: value):
+  275: 7.000000
+  128: 6.000000
+  10: 5.000000
+  133: 5.000000
+  9: 4.000000
+  11: 4.000000
+  12: 4.000000
+  13: 4.000000
+  14: 4.000000
+  15: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_10
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 34.612137
+Sparsity: 26.93%
+Non-zero features: 274
+Top features (index: value):
+  128: 8.000000
+  71: 7.000000
+  132: 7.000000
+  127: 6.000000
+  253: 6.000000
+  69: 5.000000
+  121: 5.000000
+  230: 5.000000
+  41: 4.000000
+  44: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_11
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 25.573424
+Sparsity: 49.60%
+Non-zero features: 189
+Top features (index: value):
+  128: 6.000000
+  69: 5.000000
+  71: 5.000000
+  91: 5.000000
+  121: 5.000000
+  275: 4.000000
+  89: 4.000000
+  127: 4.000000
+  133: 4.000000
+  230: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_12
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 33.823069
+Sparsity: 41.33%
+Non-zero features: 220
+Top features (index: value):
+  41: 8.000000
+  132: 6.000000
+  44: 5.000000
+  53: 5.000000
+  133: 5.000000
+  146: 5.000000
+  27: 4.000000
+  212: 4.000000
+  213: 4.000000
+  214: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_13
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 30.347982
+Sparsity: 44.00%
+Non-zero features: 210
+Top features (index: value):
+  53: 7.000000
+  52: 6.000000
+  253: 6.000000
+  255: 5.000000
+  2: 4.000000
+  22: 4.000000
+  44: 4.000000
+  204: 4.000000
+  205: 4.000000
+  206: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_14
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 40.236799
+Sparsity: 27.47%
+Non-zero features: 272
+Top features (index: value):
+  41: 9.000000
+  10: 8.000000
+  128: 7.000000
+  16: 6.000000
+  44: 6.000000
+  69: 6.000000
+  186: 6.000000
+  59: 5.000000
+  98: 5.000000
+  154: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_15
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 32.218007
+Sparsity: 38.93%
+Non-zero features: 229
+Top features (index: value):
+  27: 6.000000
+  41: 6.000000
+  133: 6.000000
+  89: 5.000000
+  93: 5.000000
+  134: 5.000000
+  135: 5.000000
+  136: 5.000000
+  137: 5.000000
+  138: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_16
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 24.698178
+Sparsity: 39.47%
+Non-zero features: 227
+Top features (index: value):
+  41: 5.000000
+  51: 4.000000
+  121: 4.000000
+  230: 4.000000
+  264: 4.000000
+  44: 3.000000
+  98: 3.000000
+  107: 3.000000
+  108: 3.000000
+  109: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_17
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 31.384710
+Sparsity: 34.40%
+Non-zero features: 246
+Top features (index: value):
+  10: 5.000000
+  16: 5.000000
+  44: 5.000000
+  230: 5.000000
+  41: 4.000000
+  51: 4.000000
+  149: 4.000000
+  154: 4.000000
+  177: 4.000000
+  9: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_18
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 41.916584
+Sparsity: 28.80%
+Non-zero features: 267
+Top features (index: value):
+  53: 9.000000
+  44: 8.000000
+  128: 8.000000
+  121: 6.000000
+  149: 6.000000
+  154: 6.000000
+  291: 6.000000
+  336: 6.000000
+  337: 6.000000
+  338: 6.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_19
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 39.204592
+Sparsity: 9.87%
+Non-zero features: 338
+Top features (index: value):
+  128: 8.000000
+  253: 7.000000
+  132: 6.000000
+  174: 6.000000
+  2: 5.000000
+  13: 5.000000
+  22: 5.000000
+  53: 5.000000
+  154: 5.000000
+  10: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_20
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 36.235342
+Sparsity: 24.00%
+Non-zero features: 285
+Top features (index: value):
+  77: 8.000000
+  174: 6.000000
+  41: 5.000000
+  144: 5.000000
+  177: 5.000000
+  230: 5.000000
+  264: 5.000000
+  44: 4.000000
+  53: 4.000000
+  71: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_21
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 42.154478
+Sparsity: 17.07%
+Non-zero features: 311
+Top features (index: value):
+  44: 8.000000
+  53: 8.000000
+  27: 6.000000
+  52: 6.000000
+  59: 6.000000
+  128: 6.000000
+  13: 5.000000
+  77: 5.000000
+  103: 5.000000
+  179: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_22
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 43.737855
+Sparsity: 26.13%
+Non-zero features: 277
+Top features (index: value):
+  128: 10.000000
+  69: 8.000000
+  127: 8.000000
+  41: 7.000000
+  121: 7.000000
+  133: 7.000000
+  13: 6.000000
+  32: 6.000000
+  71: 6.000000
+  174: 6.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_23
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 35.805028
+Sparsity: 18.40%
+Non-zero features: 306
+Top features (index: value):
+  128: 7.000000
+  17: 6.000000
+  22: 6.000000
+  13: 5.000000
+  18: 5.000000
+  19: 5.000000
+  20: 5.000000
+  21: 5.000000
+  23: 5.000000
+  24: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_24
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 24.454039
+Sparsity: 42.13%
+Non-zero features: 217
+Top features (index: value):
+  17: 4.000000
+  22: 4.000000
+  133: 4.000000
+  199: 4.000000
+  18: 3.000000
+  19: 3.000000
+  20: 3.000000
+  21: 3.000000
+  23: 3.000000
+  24: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_25
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 32.171416
+Sparsity: 30.13%
+Non-zero features: 262
+Top features (index: value):
+  44: 8.000000
+  128: 7.000000
+  59: 6.000000
+  69: 6.000000
+  53: 5.000000
+  71: 5.000000
+  186: 5.000000
+  17: 4.000000
+  43: 4.000000
+  121: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_26
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 26.851443
+Sparsity: 37.33%
+Non-zero features: 235
+Top features (index: value):
+  128: 5.000000
+  27: 4.000000
+  31: 4.000000
+  44: 4.000000
+  87: 4.000000
+  32: 3.000000
+  43: 3.000000
+  52: 3.000000
+  53: 3.000000
+  69: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_27
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 36.823905
+Sparsity: 41.07%
+Non-zero features: 221
+Top features (index: value):
+  27: 8.000000
+  87: 7.000000
+  121: 6.000000
+  341: 6.000000
+  342: 6.000000
+  343: 6.000000
+  344: 6.000000
+  345: 6.000000
+  346: 6.000000
+  347: 6.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_28
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 29.664794
+Sparsity: 38.93%
+Non-zero features: 229
+Top features (index: value):
+  27: 6.000000
+  32: 6.000000
+  121: 6.000000
+  77: 5.000000
+  133: 5.000000
+  190: 5.000000
+  31: 4.000000
+  69: 4.000000
+  127: 4.000000
+  154: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_29
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 24.657656
+Sparsity: 38.40%
+Non-zero features: 231
+Top features (index: value):
+  41: 4.000000
+  132: 4.000000
+  199: 4.000000
+  32: 3.000000
+  52: 3.000000
+  53: 3.000000
+  87: 3.000000
+  91: 3.000000
+  121: 3.000000
+  174: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_30
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 32.680269
+Sparsity: 29.07%
+Non-zero features: 266
+Top features (index: value):
+  174: 8.000000
+  41: 7.000000
+  230: 7.000000
+  32: 4.000000
+  87: 4.000000
+  98: 4.000000
+  186: 4.000000
+  199: 4.000000
+  221: 4.000000
+  13: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_31
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 30.215890
+Sparsity: 34.13%
+Non-zero features: 247
+Top features (index: value):
+  10: 5.000000
+  13: 5.000000
+  41: 5.000000
+  44: 5.000000
+  53: 5.000000
+  128: 5.000000
+  71: 4.000000
+  174: 4.000000
+  230: 4.000000
+  255: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_32
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 25.534291
+Sparsity: 35.73%
+Non-zero features: 241
+Top features (index: value):
+  44: 4.000000
+  121: 4.000000
+  174: 4.000000
+  176: 4.000000
+  199: 4.000000
+  13: 3.000000
+  32: 3.000000
+  43: 3.000000
+  59: 3.000000
+  77: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_33
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 38.535698
+Sparsity: 28.53%
+Non-zero features: 268
+Top features (index: value):
+  230: 7.000000
+  127: 6.000000
+  128: 6.000000
+  174: 6.000000
+  275: 6.000000
+  121: 5.000000
+  133: 5.000000
+  176: 5.000000
+  13: 4.000000
+  22: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_34
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 21.908902
+Sparsity: 39.73%
+Non-zero features: 226
+Top features (index: value):
+  91: 4.000000
+  121: 4.000000
+  133: 4.000000
+  177: 3.000000
+  218: 3.000000
+  221: 3.000000
+  224: 3.000000
+  227: 3.000000
+  228: 3.000000
+  229: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_35
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 40.422766
+Sparsity: 14.67%
+Non-zero features: 320
+Top features (index: value):
+  121: 8.000000
+  13: 7.000000
+  44: 6.000000
+  52: 5.000000
+  53: 5.000000
+  69: 5.000000
+  77: 5.000000
+  127: 5.000000
+  128: 5.000000
+  133: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_36
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 26.076810
+Sparsity: 41.60%
+Non-zero features: 219
+Top features (index: value):
+  44: 6.000000
+  59: 5.000000
+  91: 5.000000
+  17: 4.000000
+  69: 4.000000
+  13: 3.000000
+  16: 3.000000
+  41: 3.000000
+  43: 3.000000
+  52: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_37
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 41.928511
+Sparsity: 27.20%
+Non-zero features: 273
+Top features (index: value):
+  44: 8.000000
+  31: 7.000000
+  41: 7.000000
+  59: 7.000000
+  128: 7.000000
+  52: 6.000000
+  53: 6.000000
+  69: 6.000000
+  127: 6.000000
+  17: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_38
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 27.892651
+Sparsity: 38.93%
+Non-zero features: 229
+Top features (index: value):
+  91: 5.000000
+  221: 5.000000
+  10: 4.000000
+  13: 4.000000
+  87: 4.000000
+  121: 4.000000
+  224: 4.000000
+  230: 4.000000
+  9: 3.000000
+  11: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_39
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 42.071368
+Sparsity: 21.87%
+Non-zero features: 293
+Top features (index: value):
+  103: 7.000000
+  121: 7.000000
+  2: 6.000000
+  44: 6.000000
+  230: 6.000000
+  255: 6.000000
+  264: 6.000000
+  13: 5.000000
+  41: 5.000000
+  53: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_40
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 38.157568
+Sparsity: 16.27%
+Non-zero features: 314
+Top features (index: value):
+  44: 7.000000
+  13: 6.000000
+  121: 6.000000
+  41: 5.000000
+  43: 5.000000
+  59: 5.000000
+  103: 5.000000
+  230: 5.000000
+  9: 4.000000
+  10: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_41
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 35.028560
+Sparsity: 23.47%
+Non-zero features: 287
+Top features (index: value):
+  53: 10.000000
+  44: 8.000000
+  291: 6.000000
+  52: 5.000000
+  59: 5.000000
+  2: 4.000000
+  13: 4.000000
+  17: 4.000000
+  22: 4.000000
+  77: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_42
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 23.108440
+Sparsity: 47.47%
+Non-zero features: 197
+Top features (index: value):
+  128: 5.000000
+  132: 5.000000
+  69: 4.000000
+  44: 3.000000
+  71: 3.000000
+  127: 3.000000
+  146: 3.000000
+  179: 3.000000
+  186: 3.000000
+  190: 3.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_43
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 38.509739
+Sparsity: 30.40%
+Non-zero features: 261
+Top features (index: value):
+  255: 8.000000
+  22: 7.000000
+  53: 7.000000
+  128: 6.000000
+  132: 6.000000
+  253: 6.000000
+  264: 6.000000
+  17: 5.000000
+  31: 5.000000
+  44: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_44
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 36.932371
+Sparsity: 33.60%
+Non-zero features: 249
+Top features (index: value):
+  59: 9.000000
+  69: 8.000000
+  44: 7.000000
+  13: 5.000000
+  43: 5.000000
+  52: 5.000000
+  91: 5.000000
+  93: 5.000000
+  174: 5.000000
+  230: 5.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_45
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 31.937439
+Sparsity: 30.40%
+Non-zero features: 261
+Top features (index: value):
+  53: 6.000000
+  2: 5.000000
+  44: 5.000000
+  174: 5.000000
+  17: 4.000000
+  22: 4.000000
+  27: 4.000000
+  32: 4.000000
+  41: 4.000000
+  98: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_46
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 33.645208
+Sparsity: 36.27%
+Non-zero features: 239
+Top features (index: value):
+  121: 8.000000
+  221: 8.000000
+  224: 7.000000
+  253: 7.000000
+  199: 6.000000
+  220: 6.000000
+  222: 6.000000
+  223: 6.000000
+  225: 6.000000
+  226: 6.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_47
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 32.771939
+Sparsity: 24.27%
+Non-zero features: 284
+Top features (index: value):
+  77: 6.000000
+  190: 6.000000
+  41: 5.000000
+  44: 5.000000
+  133: 5.000000
+  149: 4.000000
+  177: 4.000000
+  188: 4.000000
+  189: 4.000000
+  191: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_48
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 25.980762
+Sparsity: 44.00%
+Non-zero features: 210
+Top features (index: value):
+  16: 4.000000
+  52: 4.000000
+  59: 4.000000
+  77: 4.000000
+  121: 4.000000
+  133: 4.000000
+  146: 4.000000
+  245: 4.000000
+  246: 4.000000
+  247: 4.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_49
+Vectorization Type: BAG_OF_WORDS
+Dimension: 375
+L2 Norm: 31.224990
+Sparsity: 44.53%
+Non-zero features: 208
+Top features (index: value):
+  44: 8.000000
+  43: 7.000000
+  42: 6.000000
+  45: 6.000000
+  46: 6.000000
+  47: 6.000000
+  48: 6.000000
+  49: 6.000000
+  50: 6.000000
+  51: 6.000000
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Total Documents: 50

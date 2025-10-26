@@ -1,0 +1,1103 @@
+=== DOCUMENT SEQUENCE VECTORS ===
+
+Document ID: doc_0
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 27.47%
+Non-zero features: 272
+Top features (index: value):
+  27: 0.163322
+  199: 0.133203
+  121: 0.132753
+  32: 0.130587
+  41: 0.118340
+  128: 0.118340
+  220: 0.113624
+  222: 0.113624
+  223: 0.113624
+  225: 0.113624
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_1
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 37.33%
+Non-zero features: 235
+Top features (index: value):
+  41: 0.195821
+  27: 0.154431
+  77: 0.142645
+  116: 0.129081
+  117: 0.129081
+  118: 0.129081
+  119: 0.129081
+  120: 0.129081
+  122: 0.129081
+  123: 0.129081
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_2
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 28.27%
+Non-zero features: 269
+Top features (index: value):
+  53: 0.167574
+  52: 0.152502
+  128: 0.146627
+  127: 0.128172
+  230: 0.125680
+  44: 0.120846
+  190: 0.120257
+  17: 0.108930
+  77: 0.106810
+  133: 0.106810
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_3
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 14.93%
+Non-zero features: 319
+Top features (index: value):
+  121: 0.218667
+  128: 0.157441
+  13: 0.124882
+  127: 0.124882
+  199: 0.118144
+  224: 0.115823
+  116: 0.107626
+  117: 0.107626
+  118: 0.107626
+  119: 0.107626
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_4
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 28.80%
+Non-zero features: 267
+Top features (index: value):
+  199: 0.164962
+  121: 0.161049
+  220: 0.150766
+  222: 0.150766
+  223: 0.150766
+  225: 0.150766
+  226: 0.150766
+  128: 0.146555
+  224: 0.138619
+  133: 0.128109
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_5
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 42.40%
+Non-zero features: 216
+Top features (index: value):
+  2: 0.122979
+  22: 0.122979
+  69: 0.118226
+  87: 0.118226
+  89: 0.118226
+  127: 0.115925
+  133: 0.115925
+  41: 0.113671
+  272: 0.109141
+  273: 0.109141
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_6
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 46.13%
+Non-zero features: 202
+Top features (index: value):
+  128: 0.203788
+  156: 0.164159
+  157: 0.164159
+  158: 0.164159
+  159: 0.164159
+  160: 0.164159
+  161: 0.164159
+  121: 0.139964
+  116: 0.134333
+  117: 0.134333
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_7
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 44.53%
+Non-zero features: 208
+Top features (index: value):
+  230: 0.196888
+  174: 0.167326
+  176: 0.164073
+  71: 0.144843
+  103: 0.144843
+  127: 0.133861
+  126: 0.133037
+  129: 0.133037
+  130: 0.133037
+  131: 0.133037
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_8
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 25.07%
+Non-zero features: 281
+Top features (index: value):
+  133: 0.153129
+  190: 0.147779
+  77: 0.131254
+  41: 0.128702
+  127: 0.109378
+  128: 0.107252
+  121: 0.103126
+  146: 0.100507
+  245: 0.096806
+  246: 0.096806
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_9
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 45.60%
+Non-zero features: 204
+Top features (index: value):
+  275: 0.195738
+  128: 0.155077
+  272: 0.148897
+  273: 0.148897
+  274: 0.148897
+  276: 0.148897
+  277: 0.148897
+  278: 0.148897
+  279: 0.148897
+  10: 0.134409
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_10
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 26.93%
+Non-zero features: 274
+Top features (index: value):
+  128: 0.188242
+  71: 0.181758
+  132: 0.171312
+  253: 0.155793
+  127: 0.143981
+  126: 0.127195
+  129: 0.127195
+  130: 0.127195
+  131: 0.127195
+  69: 0.122366
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_11
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 49.60%
+Non-zero features: 189
+Top features (index: value):
+  128: 0.192353
+  71: 0.176883
+  91: 0.173420
+  69: 0.166717
+  121: 0.154128
+  275: 0.138736
+  89: 0.133374
+  127: 0.130778
+  133: 0.130778
+  230: 0.128235
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_12
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 41.33%
+Non-zero features: 220
+Top features (index: value):
+  41: 0.182851
+  132: 0.142633
+  302: 0.137535
+  303: 0.137535
+  304: 0.137535
+  305: 0.137535
+  306: 0.137535
+  307: 0.137535
+  308: 0.137535
+  309: 0.137535
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_13
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 44.00%
+Non-zero features: 210
+Top features (index: value):
+  53: 0.182339
+  253: 0.172465
+  52: 0.162553
+  255: 0.146600
+  254: 0.143798
+  256: 0.143798
+  257: 0.143798
+  258: 0.143798
+  204: 0.129664
+  205: 0.129664
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_14
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 27.47%
+Non-zero features: 272
+Top features (index: value):
+  41: 0.179447
+  10: 0.165900
+  128: 0.139570
+  16: 0.132012
+  235: 0.131946
+  236: 0.131946
+  237: 0.131946
+  238: 0.131946
+  69: 0.124425
+  186: 0.124425
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_15
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 38.93%
+Non-zero features: 229
+Top features (index: value):
+  27: 0.202754
+  134: 0.162035
+  135: 0.162035
+  136: 0.162035
+  137: 0.162035
+  138: 0.162035
+  139: 0.162035
+  133: 0.149825
+  41: 0.146912
+  154: 0.137803
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_16
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 39.47%
+Non-zero features: 227
+Top features (index: value):
+  41: 0.159245
+  51: 0.143396
+  264: 0.140580
+  107: 0.134692
+  108: 0.134692
+  109: 0.134692
+  110: 0.134692
+  111: 0.134692
+  112: 0.134692
+  113: 0.134692
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_17
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 34.40%
+Non-zero features: 246
+Top features (index: value):
+  16: 0.141600
+  10: 0.133462
+  230: 0.128320
+  44: 0.123384
+  51: 0.115549
+  154: 0.115549
+  177: 0.111062
+  149: 0.106770
+  42: 0.104047
+  45: 0.104047
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_18
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 28.80%
+Non-zero features: 267
+Top features (index: value):
+  53: 0.171588
+  336: 0.154590
+  337: 0.154590
+  338: 0.154590
+  339: 0.154590
+  340: 0.154590
+  128: 0.152523
+  44: 0.146656
+  154: 0.128759
+  291: 0.126231
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_19
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 9.87%
+Non-zero features: 338
+Top features (index: value):
+  128: 0.160144
+  253: 0.154628
+  132: 0.124921
+  174: 0.122489
+  154: 0.112661
+  2: 0.108286
+  22: 0.108286
+  361: 0.103809
+  362: 0.103809
+  363: 0.103809
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_20
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 24.00%
+Non-zero features: 285
+Top features (index: value):
+  77: 0.178353
+  174: 0.133764
+  76: 0.123267
+  78: 0.123267
+  79: 0.123267
+  80: 0.123267
+  81: 0.123267
+  82: 0.123267
+  83: 0.123267
+  144: 0.120615
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_21
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 17.07%
+Non-zero features: 311
+Top features (index: value):
+  27: 0.155720
+  53: 0.150443
+  44: 0.144656
+  52: 0.117353
+  128: 0.112832
+  59: 0.108492
+  195: 0.106039
+  196: 0.106039
+  197: 0.106039
+  198: 0.106039
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_22
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 26.13%
+Non-zero features: 277
+Top features (index: value):
+  128: 0.184914
+  69: 0.153858
+  127: 0.150864
+  133: 0.132006
+  41: 0.129440
+  190: 0.127393
+  121: 0.124460
+  32: 0.122430
+  71: 0.122430
+  13: 0.113148
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_23
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 18.40%
+Non-zero features: 306
+Top features (index: value):
+  128: 0.156170
+  22: 0.144820
+  18: 0.144618
+  19: 0.144618
+  20: 0.144618
+  21: 0.144618
+  23: 0.144618
+  24: 0.144618
+  25: 0.144618
+  17: 0.139223
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_24
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 42.13%
+Non-zero features: 217
+Top features (index: value):
+  199: 0.146820
+  22: 0.141119
+  195: 0.137908
+  196: 0.137908
+  197: 0.137908
+  198: 0.137908
+  200: 0.137908
+  201: 0.137908
+  202: 0.137908
+  203: 0.137908
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_25
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 30.13%
+Non-zero features: 262
+Top features (index: value):
+  44: 0.197050
+  128: 0.179316
+  69: 0.159858
+  59: 0.147787
+  71: 0.141338
+  186: 0.133215
+  53: 0.128083
+  43: 0.117654
+  275: 0.110856
+  272: 0.110681
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_26
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 37.33%
+Non-zero features: 235
+Top features (index: value):
+  27: 0.164355
+  128: 0.148861
+  31: 0.134045
+  87: 0.123860
+  44: 0.114508
+  204: 0.111150
+  205: 0.111150
+  206: 0.111150
+  207: 0.111150
+  208: 0.111150
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_27
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 41.07%
+Non-zero features: 221
+Top features (index: value):
+  27: 0.234860
+  341: 0.155644
+  342: 0.155644
+  343: 0.155644
+  344: 0.155644
+  345: 0.155644
+  346: 0.155644
+  347: 0.155644
+  87: 0.154870
+  121: 0.122722
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_28
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 38.93%
+Non-zero features: 229
+Top features (index: value):
+  27: 0.218862
+  32: 0.174995
+  121: 0.152483
+  190: 0.151741
+  77: 0.134773
+  133: 0.134773
+  31: 0.119001
+  154: 0.119001
+  221: 0.119001
+  224: 0.116664
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_29
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 38.40%
+Non-zero features: 231
+Top features (index: value):
+  199: 0.145172
+  132: 0.134141
+  41: 0.128973
+  204: 0.120376
+  205: 0.120376
+  206: 0.120376
+  207: 0.120376
+  208: 0.120376
+  209: 0.120376
+  210: 0.120376
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_30
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 29.07%
+Non-zero features: 266
+Top features (index: value):
+  174: 0.196190
+  41: 0.168329
+  230: 0.168329
+  199: 0.108269
+  221: 0.108269
+  32: 0.106142
+  180: 0.103899
+  181: 0.103899
+  182: 0.103899
+  183: 0.103899
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_31
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 34.13%
+Non-zero features: 247
+Top features (index: value):
+  10: 0.140377
+  13: 0.137645
+  41: 0.134969
+  53: 0.134969
+  128: 0.134969
+  44: 0.129777
+  255: 0.121537
+  71: 0.119150
+  291: 0.119150
+  174: 0.110116
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_32
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 35.73%
+Non-zero features: 241
+Top features (index: value):
+  199: 0.138397
+  174: 0.125392
+  176: 0.122954
+  44: 0.118225
+  121: 0.118225
+  43: 0.105884
+  179: 0.103798
+  221: 0.103798
+  32: 0.101759
+  103: 0.101759
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_33
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 28.53%
+Non-zero features: 268
+Top features (index: value):
+  230: 0.142700
+  275: 0.132329
+  127: 0.124739
+  174: 0.124739
+  128: 0.122314
+  272: 0.117440
+  273: 0.117440
+  274: 0.117440
+  276: 0.117440
+  277: 0.117440
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_34
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 39.73%
+Non-zero features: 226
+Top features (index: value):
+  91: 0.157875
+  133: 0.148820
+  227: 0.141889
+  228: 0.141889
+  229: 0.141889
+  231: 0.141889
+  232: 0.141889
+  233: 0.141889
+  234: 0.141889
+  121: 0.140313
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_35
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 14.67%
+Non-zero features: 320
+Top features (index: value):
+  121: 0.151858
+  13: 0.140931
+  44: 0.113893
+  52: 0.102663
+  69: 0.102663
+  77: 0.100665
+  127: 0.100665
+  133: 0.100665
+  174: 0.100665
+  53: 0.098708
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_36
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 41.60%
+Non-zero features: 219
+Top features (index: value):
+  44: 0.177931
+  91: 0.166834
+  59: 0.148275
+  17: 0.128309
+  69: 0.128309
+  227: 0.119952
+  228: 0.119952
+  229: 0.119952
+  231: 0.119952
+  232: 0.119952
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_37
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 27.20%
+Non-zero features: 273
+Top features (index: value):
+  31: 0.149314
+  44: 0.145772
+  330: 0.139452
+  331: 0.139452
+  332: 0.139452
+  333: 0.139452
+  334: 0.139452
+  335: 0.139452
+  41: 0.132653
+  128: 0.132653
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_38
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 38.93%
+Non-zero features: 229
+Top features (index: value):
+  221: 0.160606
+  91: 0.154369
+  224: 0.125962
+  220: 0.123299
+  222: 0.123299
+  223: 0.123299
+  225: 0.123299
+  226: 0.123299
+  10: 0.118722
+  87: 0.118722
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_39
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 21.87%
+Non-zero features: 293
+Top features (index: value):
+  103: 0.141566
+  255: 0.123773
+  121: 0.123355
+  264: 0.121343
+  2: 0.118966
+  116: 0.112755
+  117: 0.112755
+  118: 0.112755
+  119: 0.112755
+  120: 0.112755
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_40
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 16.27%
+Non-zero features: 314
+Top features (index: value):
+  44: 0.143044
+  13: 0.130042
+  121: 0.122609
+  43: 0.122012
+  103: 0.117259
+  42: 0.114882
+  45: 0.114882
+  46: 0.114882
+  47: 0.114882
+  48: 0.114882
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_41
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 23.47%
+Non-zero features: 287
+Top features (index: value):
+  53: 0.233889
+  44: 0.179914
+  291: 0.154857
+  336: 0.126431
+  337: 0.126431
+  338: 0.126431
+  339: 0.126431
+  340: 0.126431
+  52: 0.121631
+  59: 0.112446
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_42
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 47.47%
+Non-zero features: 197
+Top features (index: value):
+  132: 0.173818
+  128: 0.167122
+  69: 0.139055
+  218: 0.119840
+  146: 0.117459
+  190: 0.115136
+  179: 0.112867
+  71: 0.110650
+  186: 0.104291
+  348: 0.102819
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_43
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 30.40%
+Non-zero features: 261
+Top features (index: value):
+  255: 0.185709
+  22: 0.156185
+  53: 0.144364
+  253: 0.136547
+  264: 0.136547
+  132: 0.128699
+  128: 0.123741
+  318: 0.116291
+  319: 0.116291
+  320: 0.116291
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_44
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 33.60%
+Non-zero features: 249
+Top features (index: value):
+  59: 0.187940
+  69: 0.180702
+  44: 0.146175
+  322: 0.136652
+  323: 0.136652
+  324: 0.136652
+  325: 0.136652
+  326: 0.136652
+  327: 0.136652
+  328: 0.136652
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_45
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 30.40%
+Non-zero features: 261
+Top features (index: value):
+  53: 0.147685
+  27: 0.135880
+  2: 0.133148
+  174: 0.125511
+  44: 0.118337
+  302: 0.111085
+  303: 0.111085
+  304: 0.111085
+  305: 0.111085
+  306: 0.111085
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_46
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 36.27%
+Non-zero features: 239
+Top features (index: value):
+  221: 0.214736
+  220: 0.206069
+  222: 0.206069
+  223: 0.206069
+  225: 0.206069
+  226: 0.206069
+  224: 0.184204
+  253: 0.184204
+  121: 0.183437
+  199: 0.161052
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_47
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 24.27%
+Non-zero features: 284
+Top features (index: value):
+  190: 0.165095
+  77: 0.146634
+  188: 0.138053
+  189: 0.138053
+  191: 0.138053
+  192: 0.138053
+  193: 0.138053
+  194: 0.138053
+  133: 0.122195
+  41: 0.119819
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_48
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 44.00%
+Non-zero features: 210
+Top features (index: value):
+  245: 0.178411
+  246: 0.178411
+  247: 0.178411
+  248: 0.178411
+  249: 0.178411
+  250: 0.178411
+  251: 0.178411
+  252: 0.178411
+  146: 0.138923
+  16: 0.130870
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Document ID: doc_49
+Vectorization Type: TF_IDF
+Dimension: 375
+L2 Norm: 1.000000
+Sparsity: 44.53%
+Non-zero features: 208
+Top features (index: value):
+  42: 0.201116
+  45: 0.201116
+  46: 0.201116
+  47: 0.201116
+  48: 0.201116
+  49: 0.201116
+  50: 0.201116
+  43: 0.199358
+  44: 0.190794
+  51: 0.167511
+Metadata:
+  vocabulary_size: 375
+
+================================================================================
+
+Total Documents: 50
