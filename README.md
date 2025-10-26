@@ -75,8 +75,8 @@ The HTML dashboard is crafted as a mini analytics app with emphasis on clarity, 
  │      SequencingPipeline     │ 7 deterministic stages
  └──────┬────────────┬─────────┘
         │            │
-  ┌─────▼───┐   ┌────▼─────┐   additional services
-  │preprocess│   │encoding │   ────────────────
+  ┌─────▼────┐   ┌────▼─────┐   additional services
+  │preprocess│   │encoding  │   ────────────────
   │normalize │   │vocabulary│  DocumentReader (input)
   │tokenize  │   │tf-idf    │  SequenceWriter (text outputs)
   │filter    │   │bow       │  HtmlReportWriter (UI)
@@ -254,3 +254,4 @@ Licensed under the MIT License – see `LICENSE` for the legal text.
 
 
 Enjoy the blend of robust NLP engineering and thoughtful user experience! 
+
