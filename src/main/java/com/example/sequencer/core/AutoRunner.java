@@ -87,11 +87,12 @@ public class AutoRunner {
         bowWriter.writeVectors(result.getBowVectors());
         System.out.println("BoW vectors written to: " + bowPath);
         
+        // Write TF-IDF with all formulas instead of just vectors
         String tfidfPath = OUTPUT_BASE + "_tfidf_vectors.txt";
         SequenceWriter tfidfWriter = new SequenceWriter(tfidfPath, 
                 SequenceWriter.OutputFormat.PLAIN_TEXT);
-        tfidfWriter.writeVectors(result.getTfidfVectors());
-        System.out.println("TF-IDF vectors written to: " + tfidfPath);
+        tfidfWriter.writeTFIDFAllFormulas(result.getTfidfCalculator());
+        System.out.println("TF-IDF all formulas written to: " + tfidfPath);
         
         String numericPath = OUTPUT_BASE + "_numeric.txt";
         SequenceWriter numericWriter = new SequenceWriter(numericPath, 

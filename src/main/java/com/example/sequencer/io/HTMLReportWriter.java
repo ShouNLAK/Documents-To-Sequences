@@ -4,6 +4,9 @@ import com.example.sequencer.model.DocumentSequence;
 import com.example.sequencer.model.SequenceVector;
 import com.example.sequencer.pipeline.SequencingPipeline.PipelineResult;
 import com.example.sequencer.encoding.Vocabulary;
+import com.example.sequencer.vectorization.TFIDFCalculator;
+import com.example.sequencer.vectorization.TFFormula;
+import com.example.sequencer.vectorization.IDFFormula;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -107,7 +110,14 @@ public class HTMLReportWriter {
                ".dc{background:#f8f9fa;border-left:4px solid#667eea;padding:20px;margin-bottom:20px;border-radius:8px}" +
                ".dc h3{color:#667eea;margin-bottom:15px}" +
                ".dt{margin-bottom:15px}" +
-               ".dtc{background:#fff;padding:15px;border-radius:4px;font-family:monospace;white-space:pre-wrap;max-height:300px;overflow-y:auto;font-size:.9em;border:1px solid #dee2e6}";
+               ".dtc{background:#fff;padding:15px;border-radius:4px;font-family:monospace;white-space:pre-wrap;max-height:300px;overflow-y:auto;font-size:.9em;border:1px solid #dee2e6}" +
+               ".formula-sel{background:#f8f9fa;padding:20px;border-radius:8px;margin-bottom:20px;display:flex;gap:20px;flex-wrap:wrap}" +
+               ".form-group{flex:1;min-width:300px}" +
+               ".form-group label{display:block;font-weight:600;color:#667eea;margin-bottom:8px;font-size:.95em}" +
+               ".form-group select{width:100%;padding:10px;border:2px solid #667eea;border-radius:6px;font-size:.95em;background:#fff;cursor:pointer;transition:.3s}" +
+               ".form-group select:hover{border-color:#764ba2;box-shadow:0 2px 8px rgba(102,126,234,.2)}" +
+               ".form-group select:focus{outline:none;border-color:#764ba2;box-shadow:0 0 0 3px rgba(102,126,234,.1)}" +
+               ".formula-display{margin-top:10px;padding:12px;background:#fff;border-left:4px solid #667eea;border-radius:4px;font-family:'Courier New',monospace;color:#2c3e50;font-size:.9em;min-height:40px;display:flex;align-items:center}";
     }
     
     private String getStats() {
@@ -147,6 +157,7 @@ public class HTMLReportWriter {
         StringBuilder sb = new StringBuilder();
         Vocabulary vocab = result.getVocabulary();
         List<DocumentSequence> seqs = result.getSequences();
+        TFIDFCalculator calculator = result.getTfidfCalculator();
         int totalDocs = seqs.size();
         
         sb.append("const D={m:[");
@@ -166,51 +177,69 @@ public class HTMLReportWriter {
         }
         sb.append("],v:[");
         
-        // Calculate TF-IDF statistics for each token
+        // For each token in vocabulary, send all TF and IDF values
         for (int i = 0; i < vocab.getSize(); i++) {
             if (i > 0) sb.append(",");
             String tok = vocab.getToken(i);
-            
-            // Calculate document frequency (number of documents containing this token)
-            int docFreq = 0;
-            double totalTF = 0;  // Sum of all term frequencies across documents
-            
-            for (DocumentSequence seq : seqs) {
-                int count = 0;
-                for (String t : seq.getTokens()) {
-                    if (vocab.getIndex(t) == i) count++;
-                }
-                if (count > 0) {
-                    docFreq++;
-                    totalTF += (double) count / seq.getTokens().size();  // TF for this doc
-                }
-            }
-            
-            // Calculate average TF across all documents
-            double avgTF = totalTF / totalDocs;
-            
-            // Calculate IDF: log((N + 1) / (df + 1)) + 1 (smooth-idf, sklearn default)
-            double idf = Math.log((double) (totalDocs + 1) / (docFreq + 1)) + 1.0;
-            
-            // Calculate average TF-IDF (sum of normalized TF-IDF from all vectors / total docs)
-            double avgTFIDF = 0;
-            for (SequenceVector vec : result.getTfidfVectors()) {
-                avgTFIDF += vec.getSparseVector().getOrDefault(i, 0.0);
-            }
-            avgTFIDF /= totalDocs;
+            int docFreq = calculator.getDocumentFrequency(i);
             
             sb.append("{i:").append(i).append(",t:'").append(escJs(tok)).append("',");
             sb.append("df:").append(docFreq).append(",");
-            sb.append("tf:").append(String.format("%.4f", avgTF)).append(",");
-            sb.append("idf:").append(String.format("%.4f", idf)).append(",");
-            sb.append("tfidf:").append(String.format("%.4f", avgTFIDF)).append("}");
+            
+            // Add all IDF values for all formulas
+            sb.append("idf:{");
+            int idfIdx = 0;
+            for (IDFFormula idfFormula : IDFFormula.values()) {
+                if (idfIdx > 0) sb.append(",");
+                double idf = calculator.getIDF(i, idfFormula);
+                sb.append("'").append(idfFormula.name()).append("':").append(String.format("%.6f", idf));
+                idfIdx++;
+            }
+            sb.append("}");
+            
+            // Add all TF values for each document and each formula
+            sb.append(",tf:[");
+            for (int docIdx = 0; docIdx < totalDocs; docIdx++) {
+                if (docIdx > 0) sb.append(",");
+                sb.append("{");
+                int tfIdx = 0;
+                for (TFFormula tfFormula : TFFormula.values()) {
+                    if (tfIdx > 0) sb.append(",");
+                    double tf = calculator.getTF(docIdx, i, tfFormula);
+                    sb.append("'").append(tfFormula.name()).append("':").append(String.format("%.6f", tf));
+                    tfIdx++;
+                }
+                sb.append("}");
+            }
+            sb.append("]}");
+        }
+        sb.append("]");
+        
+        // Add formula metadata
+        sb.append(",tfFormulas:[");
+        int tfIdx = 0;
+        for (TFFormula formula : TFFormula.values()) {
+            if (tfIdx > 0) sb.append(",");
+            sb.append("{id:'").append(formula.name()).append("',");
+            sb.append("name:'").append(escJs(formula.getDisplayName())).append("',");
+            sb.append("formula:'").append(escJs(formula.getFormula())).append("'}");
+            tfIdx++;
+        }
+        sb.append("],idfFormulas:[");
+        int idfIdx = 0;
+        for (IDFFormula formula : IDFFormula.values()) {
+            if (idfIdx > 0) sb.append(",");
+            sb.append("{id:'").append(formula.name()).append("',");
+            sb.append("name:'").append(escJs(formula.getDisplayName())).append("',");
+            sb.append("formula:'").append(escJs(formula.getFormula())).append("'}");
+            idfIdx++;
         }
         sb.append("]};");
         return sb.toString();
     }
     
     private String getJS() {
-        return "let mp=0,vp=0;" +
+        return "let mp=0,vp=0,selTF='TERM_FREQUENCY',selIDF='IDF_SMOOTH';" +
                "function openTab(t){" +
                "document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));" +
                "document.querySelectorAll('.tc').forEach(e=>e.classList.remove('active'));" +
@@ -218,6 +247,11 @@ public class HTMLReportWriter {
                "document.getElementById(t).classList.add('active');" +
                "if(t==='m'&&!document.getElementById('mt').innerHTML)rM();" +
                "if(t==='v'&&!document.getElementById('vt').innerHTML)rV();" +
+               "}" +
+               "function calcTFIDF(v,docIdx){" +
+               "const tf=v.tf[docIdx][selTF];" +
+               "const idf=v.idf[selIDF];" +
+               "return tf*idf;" +
                "}" +
                "function rM(){" +
                "const s=mp*10,e=Math.min(s+10,D.m.length);" +
@@ -240,20 +274,58 @@ public class HTMLReportWriter {
                "}" +
                "function rV(){" +
                "const s=vp*50,e=Math.min(s+50,D.v.length);" +
-               "const maxIdf=Math.max(...D.v.map(x=>x.idf));" +
-               "const maxTfidf=Math.max(...D.v.map(x=>x.tfidf));" +
-               "let h='<div class=\"tbl-wrap\"><table><thead><tr><th>ID</th><th>Token</th><th>Doc Freq</th><th>Avg TF</th><th>IDF</th><th>Avg TF-IDF</th></tr></thead><tbody>';" +
+               "let h='<div class=\"formula-sel\">';" +
+               "h+='<div class=\"form-group\">';" +
+               "h+='<label>TF Formula:</label>';" +
+               "h+='<select id=\"tfSel\" onchange=\"chgFormula()\">';" +
+               "D.tfFormulas.forEach(f=>h+='<option value=\"'+f.id+'\"'+(f.id===selTF?' selected':'')+'>'+f.name+'</option>');" +
+               "h+='</select>';" +
+               "h+='<div class=\"formula-display\" id=\"tfFormula\"></div>';" +
+               "h+='</div>';" +
+               "h+='<div class=\"form-group\">';" +
+               "h+='<label>IDF Formula:</label>';" +
+               "h+='<select id=\"idfSel\" onchange=\"chgFormula()\">';" +
+               "D.idfFormulas.forEach(f=>h+='<option value=\"'+f.id+'\"'+(f.id===selIDF?' selected':'')+'>'+f.name+'</option>');" +
+               "h+='</select>';" +
+               "h+='<div class=\"formula-display\" id=\"idfFormula\"></div>';" +
+               "h+='</div>';" +
+               "h+='</div>';" +
+               "let maxTFIDF=0,maxAvgTF=0;" +
+               "D.v.forEach(v=>{" +
+               "let sumTF=0;" +
+               "for(let i=0;i<D.m.length;i++){" +
+               "const tf=v.tf[i][selTF];" +
+               "sumTF+=tf;" +
+               "const tfidf=calcTFIDF(v,i);" +
+               "if(tfidf>maxTFIDF)maxTFIDF=tfidf;" +
+               "}" +
+               "const avgTF=sumTF/D.m.length;" +
+               "if(avgTF>maxAvgTF)maxAvgTF=avgTF;" +
+               "});" +
+               "h+='<div class=\"tbl-wrap\"><table><thead><tr><th>ID</th><th>Token</th><th>Doc Freq</th><th>Avg TF</th><th>IDF</th><th>Avg TF-IDF</th></tr></thead><tbody>';" +
                "for(let i=s;i<e;i++){" +
                "const v=D.v[i];" +
-               "const idfW=Math.round((v.idf/maxIdf)*100);" +
-               "const tfW=Math.round((v.tfidf/maxTfidf)*100);" +
+               "let sumTF=0,sumTFIDF=0;" +
+               "for(let d=0;d<D.m.length;d++){" +
+               "sumTF+=v.tf[d][selTF];" +
+               "sumTFIDF+=calcTFIDF(v,d);" +
+               "}" +
+               "const avgTF=sumTF/D.m.length;" +
+               "const avgTFIDF=sumTFIDF/D.m.length;" +
+               "const idf=v.idf[selIDF];" +
+               "const tfW=maxAvgTF>0?Math.round((avgTF/maxAvgTF)*100):0;" +
+               "const tfidfW=maxTFIDF>0?Math.round((avgTFIDF/maxTFIDF)*100):0;" +
                "h+='<tr>';" +
                "h+='<td class=\"num\">'+v.i+'</td>';" +
                "h+='<td><span class=\"tok\">'+v.t+'</span></td>';" +
                "h+='<td class=\"num\">'+v.df+'</td>';" +
-               "h+='<td class=\"num\">'+v.tf.toFixed(4)+'</td>';" +
-               "h+='<td class=\"num'+(v.idf>1.5?' hi':'')+'\">'+v.idf.toFixed(4)+'<span class=\"vbar\" style=\"width:'+idfW+'px\"></span></td>';" +
-               "h+='<td class=\"num'+(v.tfidf>0.01?' hi':'')+'\">'+v.tfidf.toFixed(4)+'<span class=\"vbar\" style=\"width:'+tfW+'px\"></span></td>';" +
+               "h+='<td class=\"num'+(avgTF>0?' hi':'')+'\">'+avgTF.toFixed(6);" +
+               "if(avgTF>0)h+='<span class=\"vbar\" style=\"width:'+tfW+'px\"></span>';" +
+               "h+='</td>';" +
+               "h+='<td class=\"num'+(idf>1?' hi':'')+'\">'+idf.toFixed(6)+'</td>';" +
+               "h+='<td class=\"num'+(avgTFIDF>0.01?' hi':'')+'\">'+avgTFIDF.toFixed(6);" +
+               "if(avgTFIDF>0)h+='<span class=\"vbar\" style=\"width:'+tfidfW+'px\"></span>';" +
+               "h+='</td>';" +
                "h+='</tr>';" +
                "}" +
                "h+='</tbody></table></div>';" +
@@ -261,6 +333,18 @@ public class HTMLReportWriter {
                "document.getElementById('vp').textContent='Page '+(vp+1)+' / '+Math.ceil(D.v.length/50);" +
                "document.querySelector('[onclick=\"prevPage(\\\"v\\\")\"]').disabled=vp===0;" +
                "document.querySelector('[onclick=\"nextPage(\\\"v\\\")\"]').disabled=(vp+1)*50>=D.v.length;" +
+               "updFormula();" +
+               "}" +
+               "function chgFormula(){" +
+               "selTF=document.getElementById('tfSel').value;" +
+               "selIDF=document.getElementById('idfSel').value;" +
+               "rV();" +
+               "}" +
+               "function updFormula(){" +
+               "const tfF=D.tfFormulas.find(f=>f.id===selTF);" +
+               "const idfF=D.idfFormulas.find(f=>f.id===selIDF);" +
+               "if(tfF)document.getElementById('tfFormula').textContent=tfF.formula;" +
+               "if(idfF)document.getElementById('idfFormula').textContent=idfF.formula;" +
                "}" +
                "function prevPage(t){if(t==='m'&&mp>0){mp--;rM();}if(t==='v'&&vp>0){vp--;rV();}}" +
                "function nextPage(t){if(t==='m'&&(mp+1)*10<D.m.length){mp++;rM();}if(t==='v'&&(vp+1)*50<D.v.length){vp++;rV();}}" +
@@ -274,9 +358,18 @@ public class HTMLReportWriter {
                "D.m.forEach((d,i)=>c+='Doc '+(i+1)+','+d.join(',')+('\\n'));" +
                "dl(c,'frequency_matrix.csv');" +
                "}else{" +
-               "c='ID,Token,DocFreq,AvgTF,IDF,AvgTF-IDF\\n';" +
-               "D.v.forEach(v=>c+=v.i+','+v.t+','+v.df+','+v.tf.toFixed(4)+','+v.idf.toFixed(4)+','+v.tfidf.toFixed(4)+'\\n');" +
-               "dl(c,'vocabulary.csv');" +
+               "c='ID,Token,DocFreq,AvgTF,IDF,AvgTFIDF\\n';" +
+               "D.v.forEach(v=>{" +
+               "let sumTF=0,sumTFIDF=0;" +
+               "for(let d=0;d<D.m.length;d++){" +
+               "sumTF+=v.tf[d][selTF];" +
+               "sumTFIDF+=calcTFIDF(v,d);" +
+               "}" +
+               "const avgTF=sumTF/D.m.length;" +
+               "const avgTFIDF=sumTFIDF/D.m.length;" +
+               "c+=v.i+','+v.t+','+v.df+','+avgTF.toFixed(6)+','+v.idf[selIDF].toFixed(6)+','+avgTFIDF.toFixed(6)+'\\n';" +
+               "});" +
+               "dl(c,'vocabulary_'+selTF+'_'+selIDF+'.csv');" +
                "}" +
                "}" +
                "function dl(c,f){const b=new Blob([c],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=f;a.click();}" +

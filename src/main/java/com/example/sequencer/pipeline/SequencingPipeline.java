@@ -10,6 +10,7 @@ import com.example.sequencer.preprocessing.TextPreprocessor;
 import com.example.sequencer.preprocessing.Tokenizer;
 import com.example.sequencer.vectorization.BagOfWordsVectorizer;
 import com.example.sequencer.vectorization.TfidfVectorizer;
+import com.example.sequencer.vectorization.TFIDFCalculator;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -35,6 +36,7 @@ public class SequencingPipeline {
     private final IntegerEncoder encoder;
     private final BagOfWordsVectorizer bowVectorizer;
     private final TfidfVectorizer tfidfVectorizer;
+    private final TFIDFCalculator tfidfCalculator;
     
     private final PipelineConfiguration config;
     
@@ -57,6 +59,7 @@ public class SequencingPipeline {
         this.encoder = new IntegerEncoder(vocabulary);
         this.bowVectorizer = new BagOfWordsVectorizer(config.binaryBoW);
         this.tfidfVectorizer = new TfidfVectorizer(config.sublinearTf);
+        this.tfidfCalculator = new TFIDFCalculator();
     }
     
     /**
@@ -124,7 +127,10 @@ public class SequencingPipeline {
         System.out.println("[Step 7/7] TF-IDF Vectorization...");
         tfidfVectorizer.fit(stemmedDocs);
         List<Map<Integer, Double>> tfidfVectors = tfidfVectorizer.transform(stemmedDocs);
-        System.out.println("  ✓ Completed: Generated TF-IDF vectors\n");
+        
+        // Also calculate all TF-IDF formulas
+        tfidfCalculator.fit(stemmedDocs);
+        System.out.println("  ✓ Completed: Generated TF-IDF vectors and all formula calculations\n");
         
         // Build DocumentSequence objects
         List<DocumentSequence> sequences = new ArrayList<>();
@@ -168,7 +174,7 @@ public class SequencingPipeline {
         System.out.println("=".repeat(80) + "\n");
         
         return new PipelineResult(sequences, bowSequenceVectors, tfidfSequenceVectors, 
-                                  vocabulary, config);
+                                  vocabulary, tfidfCalculator, config);
     }
     
     /**
@@ -237,17 +243,20 @@ public class SequencingPipeline {
         private final List<SequenceVector> bowVectors;
         private final List<SequenceVector> tfidfVectors;
         private final Vocabulary vocabulary;
+        private final TFIDFCalculator tfidfCalculator;
         private final PipelineConfiguration configuration;
         
         public PipelineResult(List<DocumentSequence> sequences,
                             List<SequenceVector> bowVectors,
                             List<SequenceVector> tfidfVectors,
                             Vocabulary vocabulary,
+                            TFIDFCalculator tfidfCalculator,
                             PipelineConfiguration configuration) {
             this.sequences = sequences;
             this.bowVectors = bowVectors;
             this.tfidfVectors = tfidfVectors;
             this.vocabulary = vocabulary;
+            this.tfidfCalculator = tfidfCalculator;
             this.configuration = configuration;
         }
         
@@ -265,6 +274,10 @@ public class SequencingPipeline {
         
         public Vocabulary getVocabulary() {
             return vocabulary;
+        }
+        
+        public TFIDFCalculator getTfidfCalculator() {
+            return tfidfCalculator;
         }
         
         public PipelineConfiguration getConfiguration() {
