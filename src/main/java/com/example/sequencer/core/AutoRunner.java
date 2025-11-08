@@ -22,10 +22,18 @@ public class AutoRunner {
     private static final String OUTPUT_BASE = OUTPUT_DIR + "/output";
     
     public static void main(String[] args) {
+        // Performance tracking
+        long startTime = System.currentTimeMillis();
+        Runtime runtime = Runtime.getRuntime();
+        
         try {
             System.out.println("\n" + "=".repeat(80));
             System.out.println("  AUTO RUNNER - BATCH DOCUMENT PROCESSING");
             System.out.println("=".repeat(80) + "\n");
+            
+            // Force garbage collection for accurate initial memory reading
+            System.gc();
+            long initialMemory = runtime.totalMemory() - runtime.freeMemory();
             
             File inputDir = new File(INPUT_DIR);
             File[] txtFiles = inputDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt"));
@@ -49,7 +57,7 @@ public class AutoRunner {
             PipelineConfiguration config = new PipelineConfiguration()
                     .setLowercase(true)
                     .setRemoveStopWords(true)
-                    .setApplyStemming(true)
+                    .setApplyStemming(false)
                     .setMinFrequency(1)
                     .setMinTokenLength(1);
             
@@ -58,14 +66,36 @@ public class AutoRunner {
             
             writeOutputFiles(result);
             
+            // Calculate performance metrics before HTML generation
+            long endTime = System.currentTimeMillis();
+            long finalMemory = runtime.totalMemory() - runtime.freeMemory();
+            long memoryUsed = finalMemory - initialMemory;
+            long executionTime = endTime - startTime;
+            
+            // Display performance metrics
+            System.out.println("\n" + "=".repeat(80));
+            System.out.println("⚡ PERFORMANCE METRICS");
+            System.out.println("=".repeat(80));
+            System.out.printf("⏱️  Execution Time:      %,d ms (%.2f seconds)%n", 
+                executionTime, executionTime / 1000.0);
+            System.out.printf("💾 Memory Used:         %,d bytes (%.2f MB)%n", 
+                memoryUsed, memoryUsed / (1024.0 * 1024.0));
+            System.out.printf("📊 Documents Processed: %d%n", allDocuments.size());
+            System.out.printf("📖 Vocabulary Size:     %d unique tokens%n", result.getVocabulary().getSize());
+            System.out.printf("⚙️  Throughput:          %.2f docs/sec%n", 
+                allDocuments.size() / (executionTime / 1000.0));
+            System.out.println("=".repeat(80) + "\n");
+            
+            // HTML generation (not counted in performance)
+            System.out.println("Generating HTML report...");
             String htmlPath = OUTPUT_DIR + "/report.html";
             HTMLReportWriter htmlWriter = new HTMLReportWriter(htmlPath, result, allDocuments);
             htmlWriter.write();
             System.out.println("HTML Report written to: " + htmlPath);
             
             System.out.println("\n" + "=".repeat(80));
-            System.out.println("COMPLETED! Results saved to Data/Output");
-            System.out.println("Open: Data/Output/report.html");
+            System.out.println("✅ COMPLETED! Results saved to Data/Output");
+            System.out.println("📄 Open: Data/Output/report.html");
             System.out.println("=".repeat(80) + "\n");
             
         } catch (Exception e) {

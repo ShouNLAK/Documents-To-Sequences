@@ -15,16 +15,15 @@ build() {
 
     echo "Compiling Java source files..."
 
-    # Compile all Java files
+    # Compile all Java files (excluding deleted utils directory if empty)
     javac -d target/classes -encoding UTF-8 \
         src/main/java/com/example/sequencer/preprocessing/*.java \
         src/main/java/com/example/sequencer/encoding/*.java \
         src/main/java/com/example/sequencer/vectorization/*.java \
         src/main/java/com/example/sequencer/model/*.java \
         src/main/java/com/example/sequencer/io/*.java \
-        src/main/java/com/example/sequencer/utils/*.java \
         src/main/java/com/example/sequencer/pipeline/*.java \
-        src/main/java/com/example/sequencer/core/*.java
+        src/main/java/com/example/sequencer/core/*.java 2>/dev/null
 
     if [ $? -ne 0 ]; then
         echo ""
@@ -37,6 +36,7 @@ build() {
     echo ""
     if [ -z "$1" ]; then
         echo "To run the application: ./build.sh run"
+        echo "To run auto-mode with HTML report: ./build.sh auto"
         echo "To test components: ./build.sh test"
         echo ""
     fi
@@ -92,10 +92,37 @@ run_test() {
     echo ""
 }
 
+run_auto() {
+    if [ ! -f "target/classes/com/example/sequencer/core/AutoRunner.class" ]; then
+        echo "Building first..."
+        build "skip-message"
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+    fi
+
+    echo ""
+    echo "================================================================================"
+    echo "Auto-Runner: Document-to-Sequence with HTML Report"
+    echo "================================================================================"
+    echo ""
+
+    java -cp target/classes com.example.sequencer.core.AutoRunner
+    
+    echo ""
+    echo "================================================================================"
+    echo "HTML Report: Data/Output/report.html"
+    echo "================================================================================"
+    echo ""
+}
+
 # Main script logic
 case "$1" in
     run)
         run_app
+        ;;
+    auto)
+        run_auto
         ;;
     test)
         run_test

@@ -1,10 +1,10 @@
 package com.example.sequencer.preprocessing;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Tokenizer - Splits text into discrete tokens (words)
@@ -39,9 +39,14 @@ public class Tokenizer {
             return new ArrayList<>();
         }
         
-        return Arrays.stream(tokenPattern.split(text.trim()))
-                .filter(token -> token.length() >= minTokenLength)
-                .collect(Collectors.toList());
+        String[] rawTokens = tokenPattern.split(text.trim());
+        List<String> tokens = new ArrayList<>(rawTokens.length);
+        for (String token : rawTokens) {
+            if (token.length() >= minTokenLength) {
+                tokens.add(token);
+            }
+        }
+        return tokens;
     }
     
     /**
@@ -50,7 +55,7 @@ public class Tokenizer {
      * @return List of tokenized documents
      */
     public List<List<String>> tokenizeAll(List<String> documents) {
-        List<List<String>> tokenizedDocs = new ArrayList<>();
+        List<List<String>> tokenizedDocs = new ArrayList<>(documents.size());
         for (String doc : documents) {
             tokenizedDocs.add(tokenize(doc));
         }
@@ -63,8 +68,8 @@ public class Tokenizer {
      * @return Set-like list of unique tokens
      */
     public List<String> getUniqueTokens(String text) {
-        return tokenize(text).stream()
-                .distinct()
-                .collect(Collectors.toList());
+    List<String> tokens = tokenize(text);
+    Set<String> unique = new LinkedHashSet<>(tokens);
+    return new ArrayList<>(unique);
     }
 }

@@ -34,18 +34,25 @@ public class BagOfWordsVectorizer {
      * @param tokenizedDocuments List of tokenized documents
      */
     public void fit(List<List<String>> tokenizedDocuments) {
+        vocabulary.clear();
+        vocabularyIndex.clear();
+
+        if (tokenizedDocuments.isEmpty()) {
+            System.out.println("BoW vocabulary fitted: " + vocabulary.size() + " unique features");
+            return;
+        }
+
         Set<String> uniqueTokens = new LinkedHashSet<>();
-        
         for (List<String> tokens : tokenizedDocuments) {
             uniqueTokens.addAll(tokens);
         }
-        
+
         int index = 0;
         for (String token : uniqueTokens) {
             vocabulary.add(token);
             vocabularyIndex.put(token, index++);
         }
-        
+
         System.out.println("BoW vocabulary fitted: " + vocabulary.size() + " unique features");
     }
     
@@ -70,11 +77,11 @@ public class BagOfWordsVectorizer {
      * @return BoW vector as sparse map
      */
     public Map<Integer, Double> transformSingle(List<String> tokens) {
-        Map<Integer, Double> bowVector = new HashMap<>();
+        Map<Integer, Double> bowVector = new HashMap<>(tokens.size());
         
         for (String token : tokens) {
-            if (vocabularyIndex.containsKey(token)) {
-                int index = vocabularyIndex.get(token);
+            Integer index = vocabularyIndex.get(token);
+            if (index != null) {
                 if (binary) {
                     bowVector.put(index, 1.0);
                 } else {

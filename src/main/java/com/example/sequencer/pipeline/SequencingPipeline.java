@@ -128,12 +128,12 @@ public class SequencingPipeline {
         tfidfVectorizer.fit(stemmedDocs);
         List<Map<Integer, Double>> tfidfVectors = tfidfVectorizer.transform(stemmedDocs);
         
-        // Also calculate all TF-IDF formulas
-        tfidfCalculator.fit(stemmedDocs);
+        // Also calculate all TF-IDF formulas using the shared vocabulary
+        tfidfCalculator.fit(stemmedDocs, vocabulary);
         System.out.println("  ✓ Completed: Generated TF-IDF vectors and all formula calculations\n");
         
-        // Build DocumentSequence objects
-        List<DocumentSequence> sequences = new ArrayList<>();
+        // Build DocumentSequence objects with pre-allocated list
+        List<DocumentSequence> sequences = new ArrayList<>(rawDocuments.size());
         for (int i = 0; i < rawDocuments.size(); i++) {
             DocumentSequence seq = new DocumentSequence.Builder()
                     .documentId("doc_" + i)
@@ -147,16 +147,20 @@ public class SequencingPipeline {
             sequences.add(seq);
         }
         
-        // Build SequenceVector objects
-        List<SequenceVector> bowSequenceVectors = new ArrayList<>();
-        List<SequenceVector> tfidfSequenceVectors = new ArrayList<>();
+        // Build SequenceVector objects with pre-allocated lists
+        int docCount = rawDocuments.size();
+        int bowVocabSize = bowVectorizer.getVocabularySize();
+        int tfidfVocabSize = tfidfVectorizer.getVocabularySize();
         
-        for (int i = 0; i < rawDocuments.size(); i++) {
+        List<SequenceVector> bowSequenceVectors = new ArrayList<>(docCount);
+        List<SequenceVector> tfidfSequenceVectors = new ArrayList<>(docCount);
+        
+        for (int i = 0; i < docCount; i++) {
             SequenceVector bowVec = new SequenceVector.Builder()
                     .documentId("doc_" + i)
                     .sparseVector(bowVectors.get(i))
                     .type(SequenceVector.VectorizationType.BAG_OF_WORDS)
-                    .metadata("vocabulary_size", bowVectorizer.getVocabularySize())
+                    .metadata("vocabulary_size", bowVocabSize)
                     .build();
             bowSequenceVectors.add(bowVec);
             
@@ -164,7 +168,7 @@ public class SequencingPipeline {
                     .documentId("doc_" + i)
                     .sparseVector(tfidfVectors.get(i))
                     .type(SequenceVector.VectorizationType.TF_IDF)
-                    .metadata("vocabulary_size", tfidfVectorizer.getVocabularySize())
+                    .metadata("vocabulary_size", tfidfVocabSize)
                     .build();
             tfidfSequenceVectors.add(tfidfVec);
         }

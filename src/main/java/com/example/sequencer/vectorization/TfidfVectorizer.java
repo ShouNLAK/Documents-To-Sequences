@@ -38,6 +38,15 @@ public class TfidfVectorizer {
      * @param tokenizedDocuments List of tokenized documents
      */
     public void fit(List<List<String>> tokenizedDocuments) {
+        vocabulary.clear();
+        vocabularyIndex.clear();
+        idfScores.clear();
+
+        if (tokenizedDocuments.isEmpty()) {
+            System.out.println("TF-IDF vocabulary fitted: " + vocabulary.size() + " unique features");
+            return;
+        }
+
         // Build vocabulary
         Set<String> uniqueTokens = new LinkedHashSet<>();
         for (List<String> tokens : tokenizedDocuments) {
@@ -52,7 +61,7 @@ public class TfidfVectorizer {
         
         // Calculate IDF scores
         int totalDocuments = tokenizedDocuments.size();
-        Map<String, Integer> documentFrequency = new HashMap<>();
+        Map<String, Integer> documentFrequency = new HashMap<>(uniqueTokens.size());
         
         for (List<String> tokens : tokenizedDocuments) {
             Set<String> uniqueInDoc = new HashSet<>(tokens);
@@ -78,7 +87,7 @@ public class TfidfVectorizer {
      * @return List of TF-IDF vectors
      */
     public List<Map<Integer, Double>> transform(List<List<String>> tokenizedDocuments) {
-        List<Map<Integer, Double>> tfidfVectors = new ArrayList<>();
+        List<Map<Integer, Double>> tfidfVectors = new ArrayList<>(tokenizedDocuments.size());
         
         for (List<String> tokens : tokenizedDocuments) {
             tfidfVectors.add(transformSingle(tokens));
@@ -93,13 +102,12 @@ public class TfidfVectorizer {
      * @return TF-IDF vector as sparse map
      */
     public Map<Integer, Double> transformSingle(List<String> tokens) {
-        Map<Integer, Double> tfidfVector = new HashMap<>();
-        
-        // Calculate term frequencies
-        Map<String, Integer> termCounts = new HashMap<>();
+        Map<String, Integer> termCounts = new HashMap<>(Math.max(tokens.size(), 8));
         for (String token : tokens) {
-            termCounts.put(token, termCounts.getOrDefault(token, 0) + 1);
+            termCounts.merge(token, 1, Integer::sum);
         }
+
+        Map<Integer, Double> tfidfVector = new HashMap<>(termCounts.size());
         
         int totalTerms = tokens.size();
         
@@ -107,25 +115,26 @@ public class TfidfVectorizer {
         for (Map.Entry<String, Integer> entry : termCounts.entrySet()) {
             String token = entry.getKey();
             int count = entry.getValue();
-            
-            if (vocabularyIndex.containsKey(token)) {
-                int index = vocabularyIndex.get(token);
-                
-                // Calculate TF
-                double tf;
-                if (useSublinearTf) {
-                    tf = 1.0 + Math.log(count);
-                } else {
-                    tf = (double) count / totalTerms;
-                }
-                
-                // Get IDF
-                double idf = idfScores.getOrDefault(token, 1.0);
-                
-                // Calculate TF-IDF
-                double tfidf = tf * idf;
-                tfidfVector.put(index, tfidf);
+
+            Integer index = vocabularyIndex.get(token);
+            if (index == null) {
+                continue;
             }
+
+            // Calculate TF
+            double tf;
+            if (useSublinearTf) {
+                tf = 1.0 + Math.log(count);
+            } else {
+                tf = totalTerms == 0 ? 0.0 : (double) count / totalTerms;
+            }
+
+            // Get IDF
+            double idf = idfScores.getOrDefault(token, 1.0);
+
+            // Calculate TF-IDF
+            double tfidf = tf * idf;
+            tfidfVector.put(index, tfidf);
         }
         
         // L2 normalization
@@ -154,18 +163,16 @@ public class TfidfVectorizer {
             norm += value * value;
         }
         norm = Math.sqrt(norm);
-        
+
         if (norm == 0.0) {
             return vector;
         }
-        
-        // Normalize
-        Map<Integer, Double> normalized = new HashMap<>();
+
         for (Map.Entry<Integer, Double> entry : vector.entrySet()) {
-            normalized.put(entry.getKey(), entry.getValue() / norm);
+            entry.setValue(entry.getValue() / norm);
         }
-        
-        return normalized;
+
+        return vector;
     }
     
     /**
@@ -216,12 +223,21 @@ public class TfidfVectorizer {
         stats.put("vectorization_type", "TF-IDF");
         
         if (!idfScores.isEmpty()) {
-            DoubleSummaryStatistics idfStats = idfScores.values().stream()
-                    .mapToDouble(Double::doubleValue)
-                    .summaryStatistics();
-            stats.put("idf_mean", idfStats.getAverage());
-            stats.put("idf_min", idfStats.getMin());
-            stats.put("idf_max", idfStats.getMax());
+            double sum = 0.0;
+            double min = Double.POSITIVE_INFINITY;
+            double max = Double.NEGATIVE_INFINITY;
+            for (double value : idfScores.values()) {
+                sum += value;
+                if (value < min) {
+                    min = value;
+                }
+                if (value > max) {
+                    max = value;
+                }
+            }
+            stats.put("idf_mean", sum / idfScores.size());
+            stats.put("idf_min", min);
+            stats.put("idf_max", max);
         }
         
         return stats;

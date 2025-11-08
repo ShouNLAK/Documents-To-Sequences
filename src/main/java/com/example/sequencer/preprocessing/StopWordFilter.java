@@ -1,7 +1,6 @@
 package com.example.sequencer.preprocessing;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * StopWordFilter - Removes common stop words from token sequences
@@ -29,9 +28,13 @@ public class StopWordFilter {
      * @return Filtered list without stop words
      */
     public List<String> filter(List<String> tokens) {
-        return tokens.stream()
-                .filter(token -> !stopWords.contains(token.toLowerCase()))
-                .collect(Collectors.toList());
+        List<String> filtered = new ArrayList<>(tokens.size());
+        for (String token : tokens) {
+            if (!stopWords.contains(token.toLowerCase(Locale.ROOT))) {
+                filtered.add(token);
+            }
+        }
+        return filtered;
     }
     
     /**
@@ -40,7 +43,7 @@ public class StopWordFilter {
      * @return Filtered documents
      */
     public List<List<String>> filterAll(List<List<String>> tokenizedDocuments) {
-        List<List<String>> filtered = new ArrayList<>();
+        List<List<String>> filtered = new ArrayList<>(tokenizedDocuments.size());
         for (List<String> tokens : tokenizedDocuments) {
             filtered.add(filter(tokens));
         }
