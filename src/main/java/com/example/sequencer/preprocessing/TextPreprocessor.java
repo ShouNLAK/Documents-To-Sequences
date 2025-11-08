@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
  * - Document-to-Sequence Conversion in Data Mining (Research Report)
  */
 public class TextPreprocessor {
-    private static final Pattern PROPER_NOUN_PATTERN = Pattern.compile("\\b([A-Z][a-z]+)\\b");
     
     private final Pattern htmlTagPattern;
     private final Pattern urlPattern;
@@ -53,7 +52,8 @@ public class TextPreprocessor {
      * @param text Input text (giữ nguyên hoa/thường)
      */
     private void extractProperNouns(String text) {
-    Matcher matcher = PROPER_NOUN_PATTERN.matcher(text);
+        Pattern properNounPattern = Pattern.compile("\\b([A-Z][a-z]+)\\b");
+        Matcher matcher = properNounPattern.matcher(text);
         while (matcher.find()) {
             protectedWords.add(matcher.group(1).toLowerCase());
         }
@@ -116,10 +116,12 @@ public class TextPreprocessor {
     
     /**
      * Preprocess multiple documents
+     * Optimized for large batches
      * @param documents List of raw documents
      * @return List of preprocessed documents
      */
     public List<String> preprocessAll(List<String> documents) {
+        // Pre-allocate list with known size for better performance
         List<String> processed = new ArrayList<>(documents.size());
         for (String doc : documents) {
             processed.add(preprocess(doc));

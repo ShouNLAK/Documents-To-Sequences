@@ -15,15 +15,16 @@ build() {
 
     echo "Compiling Java source files..."
 
-    # Compile all Java files (excluding deleted utils directory if empty)
+    # Compile all Java files
     javac -d target/classes -encoding UTF-8 \
         src/main/java/com/example/sequencer/preprocessing/*.java \
         src/main/java/com/example/sequencer/encoding/*.java \
         src/main/java/com/example/sequencer/vectorization/*.java \
         src/main/java/com/example/sequencer/model/*.java \
         src/main/java/com/example/sequencer/io/*.java \
+        src/main/java/com/example/sequencer/utils/*.java \
         src/main/java/com/example/sequencer/pipeline/*.java \
-        src/main/java/com/example/sequencer/core/*.java 2>/dev/null
+        src/main/java/com/example/sequencer/core/*.java
 
     if [ $? -ne 0 ]; then
         echo ""

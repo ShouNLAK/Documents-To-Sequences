@@ -1,7 +1,6 @@
 com/example/sequencer/vectorization/TFIDFCalculator.class
 com/example/sequencer/core/DocumentSequencerApplication.class
 com/example/sequencer/model/SequenceVector.class
-com/example/sequencer/utils/MathUtils.class
 com/example/sequencer/pipeline/SequencingPipeline.class
 com/example/sequencer/vectorization/TFFormula$1.class
 com/example/sequencer/io/DocumentReader.class

@@ -21,11 +21,13 @@ public class IntegerEncoder {
     
     /**
      * Encode a single document to integer sequence
+     * Optimized for performance
      * @param tokens List of tokens
      * @return List of integer indices
      */
     public List<Integer> encode(List<String> tokens) {
-        List<Integer> encoded = new ArrayList<>();
+        // Pre-allocate list with known size
+        List<Integer> encoded = new ArrayList<>(tokens.size());
         for (String token : tokens) {
             encoded.add(vocabulary.getIndex(token));
         }
@@ -34,11 +36,13 @@ public class IntegerEncoder {
     
     /**
      * Encode multiple documents
+     * Optimized for large batches
      * @param tokenizedDocuments List of tokenized documents
      * @return List of encoded sequences
      */
     public List<List<Integer>> encodeAll(List<List<String>> tokenizedDocuments) {
-        List<List<Integer>> allEncoded = new ArrayList<>();
+        // Pre-allocate list with known size
+        List<List<Integer>> allEncoded = new ArrayList<>(tokenizedDocuments.size());
         for (List<String> tokens : tokenizedDocuments) {
             allEncoded.add(encode(tokens));
         }
@@ -47,11 +51,13 @@ public class IntegerEncoder {
     
     /**
      * Decode an integer sequence back to tokens
+     * Optimized for performance
      * @param indices List of integer indices
      * @return List of tokens
      */
     public List<String> decode(List<Integer> indices) {
-        List<String> decoded = new ArrayList<>();
+        // Pre-allocate list with known size
+        List<String> decoded = new ArrayList<>(indices.size());
         for (Integer index : indices) {
             decoded.add(vocabulary.getToken(index));
         }
@@ -60,11 +66,13 @@ public class IntegerEncoder {
     
     /**
      * Decode multiple sequences
+     * Optimized for large batches
      * @param encodedSequences List of encoded sequences
      * @return List of decoded token sequences
      */
     public List<List<String>> decodeAll(List<List<Integer>> encodedSequences) {
-        List<List<String>> allDecoded = new ArrayList<>();
+        // Pre-allocate list with known size
+        List<List<String>> allDecoded = new ArrayList<>(encodedSequences.size());
         for (List<Integer> sequence : encodedSequences) {
             allDecoded.add(decode(sequence));
         }

@@ -38,33 +38,27 @@ public class Vocabulary {
     
     /**
      * Build vocabulary from tokenized documents
+     * Optimized for large datasets
      * @param tokenizedDocuments List of tokenized documents
      */
     public void buildFromDocuments(List<List<String>> tokenizedDocuments) {
-        resetDynamicTokens();
-
-        if (tokenizedDocuments.isEmpty()) {
-            System.out.println("Vocabulary built: " + getSize() + " unique tokens (min_freq=" + minFrequency + ")");
-            return;
-        }
-
-        // Count token frequencies
-        Map<String, Integer> tokenFrequencies = new HashMap<>();
+        // Count token frequencies - optimized with initial capacity
+        int estimatedTokens = tokenizedDocuments.size() * 100; // estimate
+        Map<String, Integer> tokenFrequencies = new HashMap<>(estimatedTokens);
+        
         for (List<String> tokens : tokenizedDocuments) {
             for (String token : tokens) {
                 tokenFrequencies.merge(token, 1, Integer::sum);
             }
         }
-
-        // Filter by minimum frequency and sort descending without streams to reduce allocations
-        List<Map.Entry<String, Integer>> entries = new ArrayList<>(tokenFrequencies.entrySet());
-        entries.removeIf(entry -> entry.getValue() < minFrequency);
-        entries.sort((left, right) -> Integer.compare(right.getValue(), left.getValue()));
-
-        for (Map.Entry<String, Integer> entry : entries) {
-            addToken(entry.getKey());
-        }
-
+        
+        // Add tokens that meet minimum frequency threshold
+        // Sort by frequency descending for better cache locality
+        tokenFrequencies.entrySet().stream()
+                .filter(entry -> entry.getValue() >= minFrequency)
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .forEach(entry -> addToken(entry.getKey()));
+        
         System.out.println("Vocabulary built: " + getSize() + " unique tokens (min_freq=" + minFrequency + ")");
     }
     
@@ -167,14 +161,5 @@ public class Vocabulary {
     @Override
     public String toString() {
         return "Vocabulary{size=" + getSize() + ", minFreq=" + minFrequency + "}";
-    }
-
-    private void resetDynamicTokens() {
-        tokenToIndex.clear();
-        indexToToken.clear();
-        nextIndex = 0;
-        // Re-register special tokens in deterministic order for stability across runs
-        addSpecialToken(paddingToken);
-        addSpecialToken(unknownToken);
     }
 }

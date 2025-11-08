@@ -31,38 +31,36 @@ public class BagOfWordsVectorizer {
     
     /**
      * Fit the vectorizer to build vocabulary from documents
+     * Optimized for large datasets
      * @param tokenizedDocuments List of tokenized documents
      */
     public void fit(List<List<String>> tokenizedDocuments) {
-        vocabulary.clear();
-        vocabularyIndex.clear();
-
-        if (tokenizedDocuments.isEmpty()) {
-            System.out.println("BoW vocabulary fitted: " + vocabulary.size() + " unique features");
-            return;
-        }
-
-        Set<String> uniqueTokens = new LinkedHashSet<>();
+        // Estimate capacity for better performance
+        int estimatedSize = tokenizedDocuments.size() * 50; // rough estimate
+        Set<String> uniqueTokens = new LinkedHashSet<>(estimatedSize);
+        
         for (List<String> tokens : tokenizedDocuments) {
             uniqueTokens.addAll(tokens);
         }
-
+        
         int index = 0;
         for (String token : uniqueTokens) {
             vocabulary.add(token);
             vocabularyIndex.put(token, index++);
         }
-
+        
         System.out.println("BoW vocabulary fitted: " + vocabulary.size() + " unique features");
     }
     
     /**
      * Transform documents to BoW vectors
+     * Optimized for large batches
      * @param tokenizedDocuments List of tokenized documents
      * @return List of BoW vectors (each vector is a map of feature indices to counts)
      */
     public List<Map<Integer, Double>> transform(List<List<String>> tokenizedDocuments) {
-        List<Map<Integer, Double>> bowVectors = new ArrayList<>();
+        // Pre-allocate list with known size
+        List<Map<Integer, Double>> bowVectors = new ArrayList<>(tokenizedDocuments.size());
         
         for (List<String> tokens : tokenizedDocuments) {
             bowVectors.add(transformSingle(tokens));
@@ -77,11 +75,11 @@ public class BagOfWordsVectorizer {
      * @return BoW vector as sparse map
      */
     public Map<Integer, Double> transformSingle(List<String> tokens) {
-        Map<Integer, Double> bowVector = new HashMap<>(tokens.size());
+        Map<Integer, Double> bowVector = new HashMap<>();
         
         for (String token : tokens) {
-            Integer index = vocabularyIndex.get(token);
-            if (index != null) {
+            if (vocabularyIndex.containsKey(token)) {
+                int index = vocabularyIndex.get(token);
                 if (binary) {
                     bowVector.put(index, 1.0);
                 } else {

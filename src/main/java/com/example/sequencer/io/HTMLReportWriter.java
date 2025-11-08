@@ -1,6 +1,7 @@
 package com.example.sequencer.io;
 
 import com.example.sequencer.model.DocumentSequence;
+import com.example.sequencer.model.SequenceVector;
 import com.example.sequencer.pipeline.SequencingPipeline.PipelineResult;
 import com.example.sequencer.encoding.Vocabulary;
 import com.example.sequencer.vectorization.TFIDFCalculator;
@@ -158,10 +159,17 @@ public class HTMLReportWriter {
                ".close{color:#fff;font-size:2em;font-weight:bold;cursor:pointer;transition:.3s;line-height:1}" +
                ".close:hover{color:#ffc107;transform:scale(1.2)}" +
                ".modal-body{padding:30px;max-height:70vh;overflow-y:auto}" +
+               ".modal-body::-webkit-scrollbar{width:10px}" +
+               ".modal-body::-webkit-scrollbar-track{background:#f1f1f1;border-radius:6px}" +
+               ".modal-body::-webkit-scrollbar-thumb{background:#667eea;border-radius:6px}" +
+               ".modal-body::-webkit-scrollbar-thumb:hover{background:#764ba2}" +
                ".detail-section{margin-bottom:25px;padding:20px;background:#f8f9fa;border-radius:8px;border-left:4px solid #667eea}" +
                ".detail-section h4{color:#667eea;margin-bottom:15px;font-size:1.2em}" +
                ".detail-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #dee2e6}" +
                ".detail-row:last-child{border-bottom:none}" +
+               "details summary{transition:color .3s}" +
+               "details summary:hover{color:#764ba2}" +
+               "details[open] summary{color:#667eea;font-weight:700}" +
                ".detail-label{font-weight:600;color:#6c757d}" +
                ".detail-value{font-family:'Courier New',monospace;color:#2c3e50;font-weight:600}" +
                ".formula-box{background:#fff;padding:15px;border-radius:6px;margin:10px 0;border:2px solid #667eea}" +
@@ -173,12 +181,7 @@ public class HTMLReportWriter {
                ".result-box .label{font-weight:600;color:#155724;margin-bottom:5px}" +
                ".result-box .value{font-size:1.5em;font-weight:bold;color:#155724;font-family:'Courier New',monospace}" +
                ".doc-freq-row{background:#fff3cd;font-weight:bold}" +
-               ".doc-freq-row th{background:#ffc107!important;color:#000!important}" +
-               "details{border:1px solid #dee2e6;border-radius:6px;margin:10px 0}" +
-               "details[open]{border-color:#667eea}" +
-               "summary{cursor:pointer;font-weight:600;color:#667eea;padding:12px;background:#f8f9fa;border-radius:6px;user-select:none;transition:.3s}" +
-               "summary:hover{background:#e9ecef;color:#764ba2}" +
-               "summary::marker{color:#667eea;font-size:1.2em}";
+               ".doc-freq-row th{background:#ffc107!important;color:#000!important}";
     }
     
     private String getStats() {
@@ -215,51 +218,46 @@ public class HTMLReportWriter {
     }
     
     private String getData() {
-        StringBuilder sb = new StringBuilder(50000); // Pre-allocate capacity
+        StringBuilder sb = new StringBuilder();
         Vocabulary vocab = result.getVocabulary();
         List<DocumentSequence> seqs = result.getSequences();
         TFIDFCalculator calculator = result.getTfidfCalculator();
         int totalDocs = seqs.size();
-        int vocabSize = vocab.getSize();
-        
-        // Cache enum arrays to avoid repeated calls
-        TFFormula[] tfFormulas = TFFormula.values();
-        IDFFormula[] idfFormulas = IDFFormula.values();
         
         sb.append("const D={m:[");
-        for (int i = 0; i < totalDocs; i++) {
+        for (int i = 0; i < seqs.size(); i++) {
             if (i > 0) sb.append(",");
-            Map<Integer, Integer> fm = new HashMap<>(vocabSize);
+            Map<Integer, Integer> fm = new HashMap<>();
             for (String t : seqs.get(i).getTokens()) {
                 int id = vocab.getIndex(t);
-                fm.merge(id, 1, Integer::sum);
+                fm.put(id, fm.getOrDefault(id, 0) + 1);
             }
             sb.append("[");
-            for (int j = 0; j < vocabSize; j++) {
+            for (int j = 0; j < vocab.getSize(); j++) {
                 if (j > 0) sb.append(",");
                 sb.append(fm.getOrDefault(j, 0));
             }
             sb.append("]");
         }
         sb.append("],docTotals:[");
-        for (int i = 0; i < totalDocs; i++) {
+        for (int i = 0; i < seqs.size(); i++) {
             if (i > 0) sb.append(",");
             sb.append(calculator.getTotalTermsInDocument(i));
         }
         sb.append("],termDocFreq:[");
-        for (int i = 0; i < vocabSize; i++) {
+        for (int i = 0; i < vocab.getSize(); i++) {
             if (i > 0) sb.append(",");
             sb.append(calculator.getDocumentFrequency(i));
         }
         sb.append("],termMaxCount:[");
-        for (int docIdx = 0; docIdx < totalDocs; docIdx++) {
+        for (int docIdx = 0; docIdx < seqs.size(); docIdx++) {
             if (docIdx > 0) sb.append(",");
             sb.append(calculator.getMaxTermCountInDocument(docIdx));
         }
         sb.append("],v:[");
         
         // For each token in vocabulary, send all TF and IDF values
-        for (int i = 0; i < vocabSize; i++) {
+        for (int i = 0; i < vocab.getSize(); i++) {
             if (i > 0) sb.append(",");
             String tok = vocab.getToken(i);
             int docFreq = calculator.getDocumentFrequency(i);
@@ -269,11 +267,12 @@ public class HTMLReportWriter {
             
             // Add all IDF values for all formulas
             sb.append("idf:{");
-            for (int idfIdx = 0; idfIdx < idfFormulas.length; idfIdx++) {
+            int idfIdx = 0;
+            for (IDFFormula idfFormula : IDFFormula.values()) {
                 if (idfIdx > 0) sb.append(",");
-                IDFFormula idfFormula = idfFormulas[idfIdx];
                 double idf = calculator.getIDF(i, idfFormula);
                 sb.append("'").append(idfFormula.name()).append("':").append(String.format("%.6f", idf));
+                idfIdx++;
             }
             sb.append("}");
             
@@ -282,11 +281,12 @@ public class HTMLReportWriter {
             for (int docIdx = 0; docIdx < totalDocs; docIdx++) {
                 if (docIdx > 0) sb.append(",");
                 sb.append("{");
-                for (int tfIdx = 0; tfIdx < tfFormulas.length; tfIdx++) {
+                int tfIdx = 0;
+                for (TFFormula tfFormula : TFFormula.values()) {
                     if (tfIdx > 0) sb.append(",");
-                    TFFormula tfFormula = tfFormulas[tfIdx];
                     double tf = calculator.getTF(docIdx, i, tfFormula);
                     sb.append("'").append(tfFormula.name()).append("':").append(String.format("%.6f", tf));
+                    tfIdx++;
                 }
                 sb.append("}");
             }
@@ -296,20 +296,22 @@ public class HTMLReportWriter {
         
         // Add formula metadata
         sb.append(",tfFormulas:[");
-        for (int tfIdx = 0; tfIdx < tfFormulas.length; tfIdx++) {
+        int tfIdx = 0;
+        for (TFFormula formula : TFFormula.values()) {
             if (tfIdx > 0) sb.append(",");
-            TFFormula formula = tfFormulas[tfIdx];
             sb.append("{id:'").append(formula.name()).append("',");
             sb.append("name:'").append(escJs(formula.getDisplayName())).append("',");
             sb.append("formula:'").append(escJs(formula.getFormula())).append("'}");
+            tfIdx++;
         }
         sb.append("],idfFormulas:[");
-        for (int idfIdx = 0; idfIdx < idfFormulas.length; idfIdx++) {
+        int idfIdx = 0;
+        for (IDFFormula formula : IDFFormula.values()) {
             if (idfIdx > 0) sb.append(",");
-            IDFFormula formula = idfFormulas[idfIdx];
             sb.append("{id:'").append(formula.name()).append("',");
             sb.append("name:'").append(escJs(formula.getDisplayName())).append("',");
             sb.append("formula:'").append(escJs(formula.getFormula())).append("'}");
+            idfIdx++;
         }
         sb.append("]};");
         return sb.toString();
@@ -317,7 +319,6 @@ public class HTMLReportWriter {
     
     private String getJS() {
         return "let mp=0,vp=0,mPageSize=10,vPageSize=50,selTF='TERM_FREQUENCY',selIDF='IDF_SMOOTH',sortBy='id',sortDir='asc',searchTerm='';" +
-               "const els={};" +
                "function openTab(t){" +
                "document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));" +
                "document.querySelectorAll('.tc').forEach(e=>e.classList.remove('active'));" +
@@ -482,12 +483,19 @@ public class HTMLReportWriter {
                "document.getElementById('vp').textContent='Page '+(vp+1)+' / '+Math.ceil(filtered.length/vPageSize);" +
                "document.querySelector('[onclick=\"prevPage(\\\"v\\\")\"]').disabled=vp===0;" +
                "document.querySelector('[onclick=\"nextPage(\\\"v\\\")\"]').disabled=(vp+1)*vPageSize>=filtered.length;" +
+               "updFormula();" +
                "}" +
                "function chgFormula(){" +
                "selTF=document.getElementById('tfSel').value;" +
                "selIDF=document.getElementById('idfSel').value;" +
                "vp=0;" +
                "rV();" +
+               "}" +
+               "function updFormula(){" +
+               "const tfF=D.tfFormulas.find(f=>f.id===selTF);" +
+               "const idfF=D.idfFormulas.find(f=>f.id===selIDF);" +
+               "if(tfF)document.getElementById('tfFormula').textContent=tfF.formula;" +
+               "if(idfF)document.getElementById('idfFormula').textContent=idfF.formula;" +
                "}" +
                "function doSearch(){" +
                "searchTerm=document.getElementById('searchInput').value.trim();" +
@@ -521,11 +529,9 @@ public class HTMLReportWriter {
                "h+='</div>';" +
                "h+='<div class=\"detail-section\">';" +
                "h+='<h4>📐 TF Calculation ('+tfF.name+')</h4>';" +
-               "h+='<div class=\"formula-expr\" style=\"margin-bottom:15px;font-size:1.1em;\">'+tfF.formula+'</div>';" +
-               "let sumTF=0,countDocs=0;" +
-               "h+='<details style=\"margin-bottom:15px;\" open>';" +
-               "h+='<summary style=\"cursor:pointer;font-weight:600;color:#667eea;padding:10px;background:#f8f9fa;border-radius:6px;margin-bottom:10px;\">📄 Document Calculations (click to expand/collapse)</summary>';" +
-               "h+='<div style=\"padding:10px;\">';" +
+               "h+='<div class=\"formula-expr\" style=\"margin-bottom:15px;\">'+tfF.formula+'</div>';" +
+               "const docsWithTerm=[];" +
+               "let sumTF=0;" +
                "for(let docIdx=0;docIdx<D.m.length;docIdx++){" +
                "const termCount=D.m[docIdx][termIdx];" +
                "if(termCount===0)continue;" +
@@ -533,20 +539,23 @@ public class HTMLReportWriter {
                "const maxCount=D.termMaxCount[docIdx];" +
                "const tf=v.tf[docIdx][selTF];" +
                "sumTF+=tf;" +
-               "countDocs++;" +
-               "h+='<div class=\"calc-step\" style=\"margin:8px 0;\">';" +
-               "h+='<strong>Doc '+(docIdx+1)+':</strong> ';" +
-               "h+=getTFSteps(selTF,termCount,totalTerms,maxCount);" +
-               "h+=' → <strong>'+tf.toFixed(6)+'</strong>';" +
-               "h+='</div>';" +
+               "docsWithTerm.push({docIdx:docIdx,termCount:termCount,totalTerms:totalTerms,maxCount:maxCount,tf:tf});" +
                "}" +
+               "const avgTF=docsWithTerm.length>0?sumTF/D.m.length:0;" +
+               "if(docsWithTerm.length<=3){" +
+               "docsWithTerm.forEach(d=>{" +
+               "h+='<div class=\"calc-step\">Doc '+(d.docIdx+1)+': '+getTFSteps(selTF,d.termCount,d.totalTerms,d.maxCount)+'</div>';" +
+               "});" +
+               "}else{" +
+               "h+='<details style=\"margin:10px 0;border:1px solid #dee2e6;border-radius:6px;padding:10px;background:#f8f9fa;\">';" +
+               "h+='<summary style=\"cursor:pointer;font-weight:600;color:#667eea;padding:5px;\">� Show calculations for '+docsWithTerm.length+' document(s)</summary>';" +
+               "h+='<div style=\"margin-top:10px;\">';" +
+               "docsWithTerm.forEach(d=>{" +
+               "h+='<div class=\"calc-step\">Doc '+(d.docIdx+1)+': '+getTFSteps(selTF,d.termCount,d.totalTerms,d.maxCount)+'</div>';" +
+               "});" +
                "h+='</div></details>';" +
-               "const avgTF=countDocs>0?sumTF/countDocs:0;" +
-               "h+='<div class=\"result-box\">';" +
-               "h+='<div class=\"label\">Average TF across all documents:</div>';" +
-               "h+='<div class=\"value\">'+avgTF.toFixed(6)+'</div>';" +
-               "h+='<div style=\"font-size:0.9em;color:#155724;margin-top:5px;\">Sum: '+sumTF.toFixed(6)+' ÷ Documents: '+countDocs+' = '+avgTF.toFixed(6)+'</div>';" +
-               "h+='</div>';" +
+               "}" +
+               "h+='<div class=\"result-box\" style=\"margin-top:15px;\"><div class=\"label\">Average TF (across '+D.m.length+' docs):</div><div class=\"value\">'+avgTF.toFixed(6)+'</div></div>';" +
                "h+='</div>';" +
                "h+='<div class=\"detail-section\">';" +
                "h+='<h4>🌍 IDF Calculation ('+idfF.name+')</h4>';" +
@@ -560,31 +569,29 @@ public class HTMLReportWriter {
                "h+='</div>';" +
                "h+='</div>';" +
                "h+='<div class=\"detail-section\">';" +
-               "h+='<h4>✨ TF-IDF Calculations</h4>';" +
-               "let sumTFIDF=0,countTFIDF=0;" +
-               "h+='<details style=\"margin-bottom:15px;\">';" +
-               "h+='<summary style=\"cursor:pointer;font-weight:600;color:#667eea;padding:10px;background:#f8f9fa;border-radius:6px;margin-bottom:10px;\">📄 Document TF-IDF Results (click to expand/collapse)</summary>';" +
-               "h+='<div style=\"padding:10px;\">';" +
-               "for(let docIdx=0;docIdx<D.m.length;docIdx++){" +
-               "const termCount=D.m[docIdx][termIdx];" +
-               "if(termCount===0)continue;" +
-               "const tf=v.tf[docIdx][selTF];" +
+               "h+='<h4>✨ TF-IDF Calculation</h4>';" +
+               "let sumTFIDF=0;" +
+               "if(docsWithTerm.length<=3){" +
+               "docsWithTerm.forEach(d=>{" +
                "const idf=v.idf[selIDF];" +
-               "const tfidf=tf*idf;" +
+               "const tfidf=d.tf*idf;" +
                "sumTFIDF+=tfidf;" +
-               "countTFIDF++;" +
-               "h+='<div class=\"calc-step\" style=\"margin:8px 0;\">';" +
-               "h+='<strong>Doc '+(docIdx+1)+':</strong> ';" +
-               "h+='TF × IDF = <code>'+tf.toFixed(6)+'</code> × <code>'+idf.toFixed(6)+'</code> = <strong>'+tfidf.toFixed(6)+'</strong>';" +
-               "h+='</div>';" +
-               "}" +
+               "h+='<div class=\"calc-step\">Doc '+(d.docIdx+1)+': TF-IDF = <code>'+d.tf.toFixed(6)+'</code> × <code>'+idf.toFixed(6)+'</code> = <code>'+tfidf.toFixed(6)+'</code></div>';" +
+               "});" +
+               "}else{" +
+               "h+='<details style=\"margin:10px 0;border:1px solid #dee2e6;border-radius:6px;padding:10px;background:#f8f9fa;\">';" +
+               "h+='<summary style=\"cursor:pointer;font-weight:600;color:#667eea;padding:5px;\">📋 Show TF-IDF for '+docsWithTerm.length+' document(s)</summary>';" +
+               "h+='<div style=\"margin-top:10px;\">';" +
+               "docsWithTerm.forEach(d=>{" +
+               "const idf=v.idf[selIDF];" +
+               "const tfidf=d.tf*idf;" +
+               "sumTFIDF+=tfidf;" +
+               "h+='<div class=\"calc-step\">Doc '+(d.docIdx+1)+': TF-IDF = <code>'+d.tf.toFixed(6)+'</code> × <code>'+idf.toFixed(6)+'</code> = <code>'+tfidf.toFixed(6)+'</code></div>';" +
+               "});" +
                "h+='</div></details>';" +
-               "const avgTFIDF=countTFIDF>0?sumTFIDF/countTFIDF:0;" +
-               "h+='<div class=\"result-box\">';" +
-               "h+='<div class=\"label\">Average TF-IDF:</div>';" +
-               "h+='<div class=\"value\">'+avgTFIDF.toFixed(6)+'</div>';" +
-               "h+='<div style=\"font-size:0.9em;color:#155724;margin-top:5px;\">Sum: '+sumTFIDF.toFixed(6)+' ÷ Documents: '+countTFIDF+' = '+avgTFIDF.toFixed(6)+'</div>';" +
-               "h+='</div>';" +
+               "}" +
+               "const avgTFIDF=docsWithTerm.length>0?sumTFIDF/D.m.length:0;" +
+               "h+='<div class=\"result-box\" style=\"margin-top:15px;\"><div class=\"label\">Average TF-IDF (across '+D.m.length+' docs):</div><div class=\"value\">'+avgTFIDF.toFixed(6)+'</div></div>';" +
                "h+='</div>';" +
                "h+='</div></div></div>';" +
                "document.body.insertAdjacentHTML('beforeend',h);" +

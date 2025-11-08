@@ -48,13 +48,6 @@ public class TFIDFCalculator {
     public void fit(List<List<String>> tokenizedDocuments, Vocabulary sharedVocabulary) {
         this.vocabulary = sharedVocabulary;
         this.totalDocuments = tokenizedDocuments.size();
-        vocabularyIndex.clear();
-        allTFValues.clear();
-        allIDFValues.clear();
-        documentTermCounts.clear();
-        documentTotalTerms.clear();
-        documentMaxTermCounts.clear();
-        documentFrequencies.clear();
         
         // Build vocabulary and collect statistics
         buildVocabularyAndStatistics(tokenizedDocuments);
@@ -85,9 +78,10 @@ public class TFIDFCalculator {
         
         // Collect document statistics
         maxDocumentFrequency = 0;
+        
         for (List<String> tokens : tokenizedDocuments) {
             // Count terms in this document
-            Map<String, Integer> termCounts = new HashMap<>(Math.max(tokens.size(), 8));
+            Map<String, Integer> termCounts = new HashMap<>();
             int maxCount = 0;
             
             for (String token : tokens) {
@@ -115,24 +109,24 @@ public class TFIDFCalculator {
      */
     private void calculateAllTFValues(List<List<String>> tokenizedDocuments) {
         for (TFFormula tfFormula : TFFormula.values()) {
-            List<Map<Integer, Double>> tfVectors = new ArrayList<>(tokenizedDocuments.size());
+            List<Map<Integer, Double>> tfVectors = new ArrayList<>();
             
             for (int docIdx = 0; docIdx < tokenizedDocuments.size(); docIdx++) {
                 Map<String, Integer> termCounts = documentTermCounts.get(docIdx);
                 int totalTerms = documentTotalTerms.get(docIdx);
                 int maxTermCount = documentMaxTermCounts.get(docIdx);
                 
-                Map<Integer, Double> tfVector = new HashMap<>(termCounts.size());
+                Map<Integer, Double> tfVector = new HashMap<>();
                 
                 for (Map.Entry<String, Integer> entry : termCounts.entrySet()) {
                     String token = entry.getKey();
                     int count = entry.getValue();
-                    Integer tokenIndex = vocabularyIndex.get(token);
-                    if (tokenIndex == null) {
-                        continue;
+                    
+                    if (vocabularyIndex.containsKey(token)) {
+                        int tokenIndex = vocabularyIndex.get(token);
+                        double tf = tfFormula.calculate(count, totalTerms, maxTermCount);
+                        tfVector.put(tokenIndex, tf);
                     }
-                    double tf = tfFormula.calculate(count, totalTerms, maxTermCount);
-                    tfVector.put(tokenIndex, tf);
                 }
                 
                 tfVectors.add(tfVector);
@@ -147,7 +141,7 @@ public class TFIDFCalculator {
      */
     private void calculateAllIDFValues() {
         for (IDFFormula idfFormula : IDFFormula.values()) {
-            Map<Integer, Double> idfVector = new HashMap<>(vocabulary.getSize());
+            Map<Integer, Double> idfVector = new HashMap<>();
             
             for (int i = 0; i < vocabulary.getSize(); i++) {
                 String token = vocabulary.getToken(i);

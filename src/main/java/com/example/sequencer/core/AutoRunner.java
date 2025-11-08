@@ -6,6 +6,7 @@ import com.example.sequencer.io.HTMLReportWriter;
 import com.example.sequencer.pipeline.SequencingPipeline;
 import com.example.sequencer.pipeline.SequencingPipeline.PipelineConfiguration;
 import com.example.sequencer.pipeline.SequencingPipeline.PipelineResult;
+import com.example.sequencer.utils.PerformanceMonitor;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.List;
 
 /**
  * AutoRunner - Batch processing for entire folder
+ * Optimized for handling large numbers of files and documents
  */
 public class AutoRunner {
     
@@ -22,19 +24,17 @@ public class AutoRunner {
     private static final String OUTPUT_BASE = OUTPUT_DIR + "/output";
     
     public static void main(String[] args) {
-        // Performance tracking
-        long startTime = System.currentTimeMillis();
-        Runtime runtime = Runtime.getRuntime();
+        PerformanceMonitor monitor = new PerformanceMonitor();
         
         try {
+            monitor.startProcessing();
+            
             System.out.println("\n" + "=".repeat(80));
             System.out.println("  AUTO RUNNER - BATCH DOCUMENT PROCESSING");
             System.out.println("=".repeat(80) + "\n");
             
-            // Force garbage collection for accurate initial memory reading
-            System.gc();
-            long initialMemory = runtime.totalMemory() - runtime.freeMemory();
-            
+            // Step 1: Read files
+            monitor.startOperation("1. Đọc file");
             File inputDir = new File(INPUT_DIR);
             File[] txtFiles = inputDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt"));
             
@@ -45,15 +45,25 @@ public class AutoRunner {
             
             System.out.println("Found " + txtFiles.length + " file(s) in " + INPUT_DIR);
             
-            List<String> allDocuments = new ArrayList<>();
+            // Optimized: Use ArrayList with initial capacity
+            List<String> allDocuments = new ArrayList<>(txtFiles.length);
+            int totalLines = 0;
+            
             for (File file : txtFiles) {
                 System.out.println("  Reading: " + file.getName());
                 DocumentReader reader = new DocumentReader(file.getPath(), 
                         DocumentReader.DocumentFormat.SINGLE_DOCUMENT);
-                allDocuments.addAll(reader.readDocuments());
+                List<String> docs = reader.readDocuments();
+                allDocuments.addAll(docs);
+                totalLines += docs.size();
             }
-            System.out.println("Loaded total " + allDocuments.size() + " document(s)\n");
             
+            System.out.println("Loaded total " + allDocuments.size() + " document(s)");
+            System.out.println("Total lines: " + totalLines + "\n");
+            monitor.endOperation("1. Đọc file");
+            
+            // Step 2: Configure and execute pipeline
+            monitor.startOperation("2. Xử lý Pipeline");
             PipelineConfiguration config = new PipelineConfiguration()
                     .setLowercase(true)
                     .setRemoveStopWords(true)
@@ -63,40 +73,30 @@ public class AutoRunner {
             
             SequencingPipeline pipeline = new SequencingPipeline(config);
             PipelineResult result = pipeline.execute(allDocuments);
+            monitor.endOperation("2. Xử lý Pipeline");
             
+            // Step 3: Write output files (excluding HTML)
+            monitor.startOperation("3. Ghi file kết quả (.txt)");
             writeOutputFiles(result);
+            monitor.endOperation("3. Ghi file kết quả (.txt)");
             
-            // Calculate performance metrics before HTML generation
-            long endTime = System.currentTimeMillis();
-            long finalMemory = runtime.totalMemory() - runtime.freeMemory();
-            long memoryUsed = finalMemory - initialMemory;
-            long executionTime = endTime - startTime;
-            
-            // Display performance metrics
-            System.out.println("\n" + "=".repeat(80));
-            System.out.println("⚡ PERFORMANCE METRICS");
-            System.out.println("=".repeat(80));
-            System.out.printf("⏱️  Execution Time:      %,d ms (%.2f seconds)%n", 
-                executionTime, executionTime / 1000.0);
-            System.out.printf("💾 Memory Used:         %,d bytes (%.2f MB)%n", 
-                memoryUsed, memoryUsed / (1024.0 * 1024.0));
-            System.out.printf("📊 Documents Processed: %d%n", allDocuments.size());
-            System.out.printf("📖 Vocabulary Size:     %d unique tokens%n", result.getVocabulary().getSize());
-            System.out.printf("⚙️  Throughput:          %.2f docs/sec%n", 
-                allDocuments.size() / (executionTime / 1000.0));
-            System.out.println("=".repeat(80) + "\n");
-            
-            // HTML generation (not counted in performance)
-            System.out.println("Generating HTML report...");
+            // Step 4: Generate HTML report (not counted in main processing time)
             String htmlPath = OUTPUT_DIR + "/report.html";
             HTMLReportWriter htmlWriter = new HTMLReportWriter(htmlPath, result, allDocuments);
             htmlWriter.write();
             System.out.println("HTML Report written to: " + htmlPath);
             
+            // End monitoring before HTML generation time
+            monitor.endProcessing();
+            
+            // Print results
             System.out.println("\n" + "=".repeat(80));
-            System.out.println("✅ COMPLETED! Results saved to Data/Output");
-            System.out.println("📄 Open: Data/Output/report.html");
-            System.out.println("=".repeat(80) + "\n");
+            System.out.println("COMPLETED! Results saved to Data/Output");
+            System.out.println("Open: Data/Output/report.html");
+            System.out.println("=".repeat(80));
+            
+            // Print performance report
+            monitor.printReport();
             
         } catch (Exception e) {
             System.err.println("ERROR: " + e.getMessage());

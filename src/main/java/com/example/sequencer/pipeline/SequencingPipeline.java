@@ -132,7 +132,7 @@ public class SequencingPipeline {
         tfidfCalculator.fit(stemmedDocs, vocabulary);
         System.out.println("  ✓ Completed: Generated TF-IDF vectors and all formula calculations\n");
         
-        // Build DocumentSequence objects with pre-allocated list
+        // Build DocumentSequence objects
         List<DocumentSequence> sequences = new ArrayList<>(rawDocuments.size());
         for (int i = 0; i < rawDocuments.size(); i++) {
             DocumentSequence seq = new DocumentSequence.Builder()
@@ -147,20 +147,16 @@ public class SequencingPipeline {
             sequences.add(seq);
         }
         
-        // Build SequenceVector objects with pre-allocated lists
-        int docCount = rawDocuments.size();
-        int bowVocabSize = bowVectorizer.getVocabularySize();
-        int tfidfVocabSize = tfidfVectorizer.getVocabularySize();
+        // Build SequenceVector objects
+        List<SequenceVector> bowSequenceVectors = new ArrayList<>(rawDocuments.size());
+        List<SequenceVector> tfidfSequenceVectors = new ArrayList<>(rawDocuments.size());
         
-        List<SequenceVector> bowSequenceVectors = new ArrayList<>(docCount);
-        List<SequenceVector> tfidfSequenceVectors = new ArrayList<>(docCount);
-        
-        for (int i = 0; i < docCount; i++) {
+        for (int i = 0; i < rawDocuments.size(); i++) {
             SequenceVector bowVec = new SequenceVector.Builder()
                     .documentId("doc_" + i)
                     .sparseVector(bowVectors.get(i))
                     .type(SequenceVector.VectorizationType.BAG_OF_WORDS)
-                    .metadata("vocabulary_size", bowVocabSize)
+                    .metadata("vocabulary_size", bowVectorizer.getVocabularySize())
                     .build();
             bowSequenceVectors.add(bowVec);
             
@@ -168,7 +164,7 @@ public class SequencingPipeline {
                     .documentId("doc_" + i)
                     .sparseVector(tfidfVectors.get(i))
                     .type(SequenceVector.VectorizationType.TF_IDF)
-                    .metadata("vocabulary_size", tfidfVocabSize)
+                    .metadata("vocabulary_size", tfidfVectorizer.getVocabularySize())
                     .build();
             tfidfSequenceVectors.add(tfidfVec);
         }
