@@ -1,11 +1,13 @@
-# 📊 Document-to-Sequence Converter
+# 📊 Document-to-Sequence Converter (Java version)
 
 > **Research-Grade NLP Implementation for Data Mining & Text Vectorization**
+
+> **Update** : 22/11/2025 - This Java version no longer receiving update, consider moving to [Python Version](https://github.com/ShouNLAK/Documents-To-Sequence-Python)
 
 [![Java](https://img.shields.io/badge/Java-8+-orange.svg)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Build](https://img.shields.io/badge/Build-Maven-red.svg)](pom.xml)
-[![Status](https://img.shields.io/badge/Status-Production-brightgreen.svg)]()
+![Status](https://img.shields.io/badge/Status-End_Of_Service-orange)
 
 ---
 
@@ -762,3 +764,4 @@ If you use this software in your research, please cite:
 [⬆ Back to Top](#-document-to-sequence-converter)
 
 </div>
+
