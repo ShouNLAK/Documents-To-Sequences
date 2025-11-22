@@ -2,7 +2,7 @@
 
 > **Research-Grade NLP Implementation for Data Mining & Text Vectorization**
 
-> **Update** : 22/11/2025 - This Java version no longer receiving update, consider moving to [Python Version](https://github.com/ShouNLAK/Documents-To-Sequence-Python)
+> **Update** : 22/11/2025 - This Java version no longer receiving update, consider moving to [Python Version](https://github.com/ShouNLAK/Documents-To-Sequences-Python)
 
 [![Java](https://img.shields.io/badge/Java-8+-orange.svg)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -764,4 +764,5 @@ If you use this software in your research, please cite:
 [⬆ Back to Top](#-document-to-sequence-converter)
 
 </div>
+
 
